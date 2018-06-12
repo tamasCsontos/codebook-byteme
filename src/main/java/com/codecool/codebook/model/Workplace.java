@@ -15,6 +15,9 @@ public class Workplace {
     @OneToMany(mappedBy = "workplaceid")
     private Set<Student> students = new HashSet<>();
 
+    @OneToMany(mappedBy = "workplace")
+    private Set<ActualJob> jobs = new HashSet<>();
+
     public Workplace() {
     }
 

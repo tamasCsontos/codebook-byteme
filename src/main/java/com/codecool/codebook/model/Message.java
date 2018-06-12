@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Message {
-
+    //TODO
     private String id;
 
     @Id
