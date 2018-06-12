@@ -1,7 +1,6 @@
 package com.codecool.codebook.model;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -13,34 +12,85 @@ public class Student {
     private String name;
 
     private String email;
-    private String WorkplaceFeedback;
+    private String workplaceFeedback;
     private String phonenumber;
 
     @ManyToOne
-    private Workplace workplaceid;
+    private Workplace workplace;
 
     @ManyToOne
-    private Klass klassid;
+    private Klass klass;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
-    @Transient
-    private long age;
+    @OneToOne(mappedBy = "senderStudent")
+    private Message sentMessage;
 
+    @OneToOne(mappedBy = "receiverStudent")
+    private Message receiverMessage;
 
     public Student() {
     }
 
-    public Student(String name, String email, String workplaceFeedback, Workplace workplaceid, Klass klassid, Date dateOfBirth, String phonenumber) {
+    public Student(String name, String email, String workplaceFeedback, String phonenumber) {
         this.name = name;
         this.email = email;
-        WorkplaceFeedback = workplaceFeedback;
-        this.workplaceid = workplaceid;
-        this.klassid = klassid;
-        this.dateOfBirth = dateOfBirth;
+        this.workplaceFeedback = workplaceFeedback;
         this.phonenumber = phonenumber;
-        this.age = (Calendar.getInstance().getTimeInMillis() - dateOfBirth.getTime())
-                / (60L * 60L * 1000L * 365L * 24L);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWorkplaceFeedback() {
+        return workplaceFeedback;
+    }
+
+    public void setWorkplaceFeedback(String workplaceFeedback) {
+        this.workplaceFeedback = workplaceFeedback;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public Workplace getWorkplace() {
+        return workplace;
+    }
+
+    public void setWorkplace(Workplace workplaceid) {
+        this.workplace = workplaceid;
+    }
+
+    public Klass getKlass() {
+        return klass;
+    }
+
+    public void setKlass(Klass klassid) {
+        this.klass = klassid;
     }
 
 }

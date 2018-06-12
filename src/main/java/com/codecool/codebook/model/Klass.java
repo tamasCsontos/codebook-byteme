@@ -12,16 +12,34 @@ public class Klass {
 
     private String name;
 
-    @OneToMany(mappedBy = "klassid")
+    @OneToMany(mappedBy = "klass")
     private Set<Student> students = new HashSet<>();
 
     public Klass() {
     }
 
-    public Klass(String name, Set<Student> students) {
+    public Klass(String name) {
         this.name = name;
-        this.students = students;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addStudent(Student student) {
+        student.setKlass(this);
+        students.add(student);
+    }
 }
