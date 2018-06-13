@@ -33,7 +33,9 @@ public class IndexController extends HttpServlet {
         try {
             engine.process("index.html", context, resp.getWriter());
         }catch (TemplateProcessingException e){
+            resp.resetBuffer();
             context.clearVariables();
+            context.setVariable("traceback", e);
             engine.process("error.html", context, resp.getWriter());
             e.printStackTrace();
         }
