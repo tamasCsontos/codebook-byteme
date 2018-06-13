@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.jdbcImplementation;
+package com.codecool.codebook;
 
 
 import org.mindrot.jbcrypt.BCrypt;
