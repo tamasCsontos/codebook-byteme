@@ -3,9 +3,14 @@
 <head>
 </head>
 <body>
-    <h1>csokolom</h1>
+    <h1>CodeBook</h1>
     <div th:each="student : ${students}">
-        <p th:text="${student}"></p>
+        <p th:text="${student.name} + ', ' +  ${student.email} + ', '
+                    + ${student.phonenumber} + ', ' + ${student.workplacefeedback} + ', '
+                    + ${query.getKlassForStd(student.klass.id)} + ', '
+                    + ${query.getWorkplaceForStd(student.workplace.id)}">
+
+        </p>
     </div>
 
 </body>
