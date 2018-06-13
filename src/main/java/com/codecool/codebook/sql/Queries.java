@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Queries {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookPU");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
     private static EntityManager em = emf.createEntityManager();
     private static EntityTransaction etr = em.getTransaction();
 
