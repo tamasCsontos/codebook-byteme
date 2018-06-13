@@ -17,4 +17,12 @@ public class Queries {
 
 
     }
+
+    public static List getAllWorkplace(){
+        Query query = em.createQuery("SELECT name from Workplace ");
+
+        return query.getResultList();
+
+
+    }
 }
