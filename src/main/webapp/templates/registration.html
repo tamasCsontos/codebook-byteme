@@ -40,16 +40,24 @@
 
 <body>
 
-<div th:replace="title.html :: title"></div>
-<div th:replace="nav_bar.html :: header"></div>
 <h1>
     Registration
 </h1>
 <form action="/registration" method="post">
     <label>
+        Name
+    </label>
+    <input required name="name"/>
+    <br>
+    <label>
+        Phone No.:
+    </label>
+    <input  name="phonenumber"/>
+    <br>
+    <label>
         E-mail:
     </label>
-    <input required name="email">
+    <input required name="email"/>
     <br>
     <label>Password:
         <input required id="password" type="password" name="password" onkeyup='check();'/>
@@ -59,7 +67,8 @@
         <input required id="confirm_password" name="confirm_password" type="password" onkeyup='check();'/>
         <span id="message"></span>
     </label>
-    <button id="submit" type="submit" value="registration" disabled>Submit</button>
+    <button id="submit" type="submit" value="registration">Submit</button>
 </form>
+<a href="/">Back To Homepage</a>
 </body>
 </html>

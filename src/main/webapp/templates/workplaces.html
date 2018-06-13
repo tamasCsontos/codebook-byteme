@@ -4,9 +4,13 @@
 </head>
 <body>
 <h1>csokolom</h1>
-<div th:each="workplace : ${workplaces}">
-    <p th:text="${workplace}"></p>
-</div>
+    <a href="/registration">Register Here</a>
+    <br>
+
+    <a href="/">Students</a>
+    <div th:each="workplace : ${workplaces}">
+        <p th:text="${workplace}"></p>
+    </div>
 
 </body>
 </html>
