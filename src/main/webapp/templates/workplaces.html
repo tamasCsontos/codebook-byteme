@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<h1>csokolom</h1>
+    <a href="/registration">Register Here</a>
+    <br>
+
+    <a href="/">Students</a>
+    <div th:each="workplace : ${workplaces}">
+        <p th:text="${workplace}"></p>
+    </div>
+
+</body>
+</html>
