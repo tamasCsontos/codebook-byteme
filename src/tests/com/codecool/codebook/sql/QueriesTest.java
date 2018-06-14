@@ -44,7 +44,7 @@ public class QueriesTest {
         Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
         Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
         Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
-        Student std4 =  new Student("john3", "asd3@gmil.com", "p1wd");
+        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
 
         //adding students to class
         newklass.addStudent(std1);
