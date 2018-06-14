@@ -33,6 +33,7 @@ public class Queries {
         return query.getResultList();
     }
 
+
     public static Student getStudent(Long Id){
         try {
             Student student = em.find(Student.class, Id);
@@ -42,6 +43,7 @@ public class Queries {
         }
         return null;
     }
+
 
 
     /**
@@ -118,6 +120,21 @@ public class Queries {
         Query query = em.createQuery("SELECT id from Student WHERE email = '" + email + "'");
 
         return Integer.parseInt(query.getSingleResult().toString());
+
+    }
+
+    public static void deleteStudent(String email){
+        etr.begin();
+        Query query = em.createQuery("DELETE from Student where email = '" + email + "'");
+        query.executeUpdate();
+        etr.commit();
+    }
+
+    public static Student getStudent(String email){
+        Query query = em.createQuery("select id from Student where email = '" + email + "'");
+        Long id = Long.parseLong(query.getSingleResult().toString());
+
+        return em.find(Student.class, id);
 
     }
 
