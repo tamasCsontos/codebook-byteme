@@ -8,7 +8,22 @@
 </div>
 <div th:text="${student.email}">
 </div>
-<div th:text="${student.workplaceFeedback}">
+
+<h2>Workplace:</h2>
+<div th:switch="${workplace}">
+    <p th:case="'No Workplace'">No Workplace for this User</p>
+    <div th:case="*">
+        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+    </div>
+</div>
+
+
+<h2>Class:</h2>
+<div th:switch="${klass}">
+    <p th:case="'No Klass'">No Class for this User</p>
+    <div th:case="*">
+        <p th:text="${klass.name}"></p>
+    </div>
 </div>
 
 </body>

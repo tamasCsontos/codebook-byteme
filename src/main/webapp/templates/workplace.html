@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<h1> Data</h1>
+<div th:text="${workplace.name}">
+</div>
+<div th:text="${workplace.description}">
+</div>
+<h2>Students working here:</h2>
+<div th:each="student : ${students}">
+    <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
+</div>
+
+<h2>Actual Jobs:</h2>
+<div th:each="job : ${jobs}">
+    <a th:text="${job.name}"></a>
+</div>
+
+</body>

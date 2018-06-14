@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,7 @@
 <h1>
     Login
 </h1>
+<div th:text="${onError}"></div>
 <form action="/login" method="post">
     <label>
         Email:
@@ -18,10 +19,6 @@
         <input required id="password" type="password" name="password"/>
     </label>
     <br>
-    <label>Confirm Password:
-        <input required id="confirm_password" name="confirm_password" type="password"/>
-        <span id="message"></span>
-    </label>
     <button id="submit" type="submit" value="registration">Submit</button>
 </form>
 </body>
