@@ -2,6 +2,10 @@ package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -13,6 +17,15 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class QueriesTest {
+    private static EntityManagerFactory entityManagerFactory;
+    protected static EntityManager entityManager;
+
+
+    @Before
+    public void setDB(){
+        //setting the db name
+        Queries.setDbName("codebookTestPU");
+    }
 
     /**
      *  Simple test for getAllStudentInfo function
@@ -20,6 +33,8 @@ public class QueriesTest {
      */
     @Test
     public void getAllStudentInfo() {
+
+        Queries.setDbName("codebookTestPU");
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
         EntityManager em = emf.createEntityManager();

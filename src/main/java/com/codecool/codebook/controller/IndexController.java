@@ -29,7 +29,7 @@ public class IndexController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("students", Queries.getAllStudent());
+        context.setVariable("students", Queries.getAllStudentInfo());
         context.setVariable("userID", session.getAttribute("userID"));
         try {
             engine.process("index.html", context, resp.getWriter());

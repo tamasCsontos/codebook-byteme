@@ -14,10 +14,15 @@ import java.util.List;
 import java.util.Set;
 
 public class Queries {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
+
+    private static String dbName = "codebookPU";
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(dbName);
     private static EntityManager em = emf.createEntityManager();
     private static EntityTransaction etr = em.getTransaction();
 
+    public static void setDbName(String dbName) {
+        Queries.dbName = dbName;
+    }
 
     /**
      * Simple select query
@@ -28,6 +33,8 @@ public class Queries {
 
         return query.getResultList();
     }
+
+
 
 
     /**
