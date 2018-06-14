@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/registration"})
 public class RegistrationController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -25,14 +25,16 @@ public class RegistrationController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String hashedPAssword = Password.hashPassword(password);
-        String name = request.getParameter("name");
-        Student newStudent = new Student(name, email, hashedPAssword);
         String phoneNumber = request.getParameter("phonenumber");
+
+        String hashedPAssword = Password.hashPassword(password);
+        Student newStudent = new Student(name, email, hashedPAssword);
+
         if (phoneNumber != null){
             newStudent.setPhonenumber(phoneNumber);
         }
