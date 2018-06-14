@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Queries {
-
     private static String dbName = "codebookPU";
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(dbName);
     private static EntityManager em = emf.createEntityManager();
@@ -34,7 +33,15 @@ public class Queries {
         return query.getResultList();
     }
 
-
+    public static Student getStudent(Long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     /**
