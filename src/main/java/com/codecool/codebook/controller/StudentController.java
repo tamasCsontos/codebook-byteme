@@ -29,7 +29,7 @@ public class StudentController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("student", Queries.getStudentInfo(pathParameter));
+        context.setVariable("student", Queries.getStudent(pathParameter));
         try {
             engine.process("student.html", context, resp.getWriter());
         }catch (TemplateProcessingException e){

@@ -30,7 +30,7 @@ public class Queries {
     }
 
 
-    public static Student getStudentInfo(Long Id){
+    public static Student getStudent(Long Id){
         try {
             Student student = em.find(Student.class, Id);
             return student;
