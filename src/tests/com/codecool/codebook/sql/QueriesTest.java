@@ -22,9 +22,9 @@ public class QueriesTest {
 
     @Before
     public void populateTDB() {
-        Queries.setEnv("codebookTestPU");
+        Queries.setEnv("codebooktestPU");
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
         EntityManager em = emf.createEntityManager();
 
         //manual datas
@@ -90,8 +90,38 @@ public class QueriesTest {
         assertEquals(std4.getEmail(), student4.getEmail());
     }
 
+    /**
+     *  Simple test for getAllStudentInKlass function
+     *  @return: void
+     */
     @Test
     public void getAllStudentInKlass() {
+        Klass newklass = new Klass("klass");
+        Klass newklass2 = new Klass("klass2");
+        Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
+        Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
+        Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
+        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
+        newklass.addStudent(std1);
+        newklass.addStudent(std2);
+        newklass2.addStudent(std3);
+        newklass2.addStudent(std4);
+
+        //Getting students from classes
+        Set firstClass = Queries.getAllStudentInKlass(1);
+        Set secondClass = Queries.getAllStudentInKlass(2);
+
+        //Cast objects to Student objects
+        Student student1 = (Student) firstClass.toArray()[0];
+        Student student2 = (Student) firstClass.toArray()[1];
+        Student student3 = (Student) secondClass.toArray()[0];
+        Student student4 = (Student) secondClass.toArray()[1];
+
+        //test each student with the test data
+        assertEquals(std1.getKlass().getName(), student1.getKlass().getName());
+        assertEquals(std2.getKlass().getName(), student2.getKlass().getName());
+        assertEquals(std3.getKlass().getName(), student3.getKlass().getName());
+        assertEquals(std4.getKlass().getName(), student4.getKlass().getName());
     }
 
     @Test
