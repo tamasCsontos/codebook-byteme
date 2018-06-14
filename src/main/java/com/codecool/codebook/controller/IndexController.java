@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -29,8 +30,19 @@ public class IndexController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("students", Queries.getAllStudentInfo());
-        context.setVariable("userID", session.getAttribute("userID"));
+
+        List students = Queries.getAllStudentInfo();
+
+        try {
+            Long id = new Long((int) session.getAttribute("userID"));
+            context.setVariable("userName", Queries.getStudent(id) );
+        } catch (NullPointerException e){
+            System.err.println("Error caught: " + e.toString());
+
+        }
+
+        context.setVariable("students", students);
+
         try {
             engine.process("index.html", context, resp.getWriter());
         }catch (TemplateProcessingException e){

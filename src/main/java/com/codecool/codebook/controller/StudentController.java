@@ -24,24 +24,23 @@ public class StudentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+
         Long pathParameter = Long.valueOf(req.getParameter("id"));
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        Student student = Queries.getStudent(pathParameter);
         context.setVariable("student", Queries.getStudent(pathParameter));
-        context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
-        context.setVariable("klass", Queries.getStudentKlass(pathParameter));
-
-
-        try {
-            engine.process("student.html", context, resp.getWriter());
-        }catch (TemplateProcessingException e){
-            resp.resetBuffer();
-            context.clearVariables();
-            context.setVariable("traceback", e);
-            engine.process("error.html", context, resp.getWriter());
-            e.printStackTrace();
+        if (student.getWorkplace() != null){
+            context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
+        } else {
+            context.setVariable("workplace", "No Workplace");
         }
+        if (student.getKlass() != null){
+            context.setVariable("klass", Queries.getStudentKlass(pathParameter));
+        } else {
+            context.setVariable("klass", "No Klass");
+        }
+        engine.process("student.html", context, resp.getWriter());
     }
 }
