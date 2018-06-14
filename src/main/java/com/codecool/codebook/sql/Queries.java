@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 public class Queries {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookPU");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
     private static EntityManager em = emf.createEntityManager();
     private static EntityTransaction etr = em.getTransaction();
 

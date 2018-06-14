@@ -33,7 +33,7 @@ public class CodeBook {
     }
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
         EntityManager em = emf.createEntityManager();
 
         populateDb(em);
