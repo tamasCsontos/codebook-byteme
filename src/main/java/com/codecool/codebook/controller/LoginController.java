@@ -36,16 +36,16 @@ public class LoginController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String hashedPWFromDB = Queries.getPassword(email);
+        int userID = Queries.getID(email);
 
         try {
-            if (hashedPWFromDB == null | !Password.checkPassword(password, hashedPWFromDB)) {
+            if (hashedPWFromDB == null | !Password.checkPassword(password, hashedPWFromDB) | userID < 0) {
 
                 context.setVariable("onError", "Wrong email or password");
                 engine.process("login.html", context, response.getWriter());
 
             } else {
 
-                int userID = Queries.getID(email);
                 HttpSession session = request.getSession();
                 session.setAttribute("userID", userID);
 

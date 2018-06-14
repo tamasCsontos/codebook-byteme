@@ -158,10 +158,13 @@ public class Queries {
     }
 
     public static void addNewStudent(Student student) {
-        etr.begin();
-        em.persist(student);
-        etr.commit();
-
+        try {
+            etr.begin();
+            em.persist(student);
+            etr.commit();
+        }catch (IllegalArgumentException e){
+            System.err.println("Error caught: " + e.toString() + "in addNewStudent()");
+        }
     }
 
     public static String getPassword(String email){
@@ -170,34 +173,56 @@ public class Queries {
                     .setParameter("email", email);
             return query.getSingleResult().toString();
         }catch (NoResultException e){
-            System.err.println("Error caught: " + e.toString());
+            System.err.println("Error caught: " + e.toString() + "in getPassword()");
         }
         return null;
     }
 
+    /**
+     * Simple getID function
+     * @param: email: String
+     * @return: 0< int or -1 on NoResultException
+     */
     public static int getID(String email){
-        Query query = em.createQuery("SELECT id from Student WHERE email = :email")
-                                    .setParameter("email", email);
+        try {
+            Query query = em.createQuery("SELECT id from Student WHERE email = :email")
+                    .setParameter("email", email);
 
-        return Integer.parseInt(query.getSingleResult().toString());
-
+            return Integer.parseInt(query.getSingleResult().toString());
+        }catch (NoResultException e){
+            System.err.println("Error caught: " + e.toString() + "in getID()");
+        }
+        return -1;
     }
 
     public static void deleteStudent(String email){
-        etr.begin();
-        Query query = em.createQuery("DELETE from Student where email = '" + email + "'");
-        query.executeUpdate();
-        etr.commit();
+        try {
+
+            etr.begin();
+            Query query = em.createQuery("DELETE from Student where email = :email")
+                    .setParameter("email", email);
+            query.executeUpdate();
+            etr.commit();
+        }catch (NoResultException e){
+            System.err.println("Error caught: " + e.toString() + "in deleteStudent()");
+        }
     }
 
     public static Student getStudent(String email){
-        Query query = em.createQuery("select id from Student where email = '" + email + "'");
+
+        Query query = em.createQuery("select id from Student where email = :email")
+                                    .setParameter("email", email);
+
         Long id = Long.parseLong(query.getSingleResult().toString());
 
         return em.find(Student.class, id);
 
     }
 
+    /**
+     * Set the persistence-unit name for hibernate manually
+     * @param dbName: String
+     */
     public static void setEnv(String dbName){
         emf = Persistence.createEntityManagerFactory(dbName);
         em = emf.createEntityManager();

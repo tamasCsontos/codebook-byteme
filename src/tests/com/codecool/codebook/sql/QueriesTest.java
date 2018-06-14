@@ -101,4 +101,9 @@ public class QueriesTest {
     @Test
     public void getKlassForStd() {
     }
+
+    @Test
+    public void getStudent(){
+
+    }
 }
