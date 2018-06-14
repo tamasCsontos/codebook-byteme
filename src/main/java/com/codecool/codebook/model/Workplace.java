@@ -64,4 +64,8 @@ public class Workplace {
     public Set<Student> getStudents() {
         return students;
     }
+
+    public Set<ActualJob> getJobs() {
+        return jobs;
+    }
 }
