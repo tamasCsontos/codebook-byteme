@@ -37,7 +37,7 @@ public class IndexController extends HttpServlet {
             Long id = new Long((int) session.getAttribute("userID"));
             context.setVariable("userName", Queries.getStudent(id) );
         } catch (NullPointerException e){
-            System.err.println("Error caught: " + e.toString());
+            System.err.println("Error caught: " + e.toString() + " in IndexController.doGet()");
 
         }
 

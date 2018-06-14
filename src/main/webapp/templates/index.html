@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title>Welcome to CodeBook</title>
 </head>
 <body>
     <h1>CodeBook</h1>
     <div th:switch="${userName}">
-        <h2 th:case="null">no user logged in</h2>
+        <h2 th:case="null">No User logged in</h2>
         <div th:case="*">
             <h2 th:text="'Welcome back ' + ${userName.getName()} + '!'"></h2>
         </div>
@@ -26,6 +28,8 @@
             <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
         </div>
     </div>
+
+    <div th:replace=" footer.html :: copy"></div>
 
 </body>
 </html>
