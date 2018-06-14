@@ -28,11 +28,17 @@ public class Queries {
      * @return List
      */
     public static List getAllStudentInfo(){
+
         Query query = em.createQuery("SELECT s FROM Student s");
 
         return query.getResultList();
     }
 
+    /**
+     * Simple entitymanager finder
+     * @param: Id : long
+     * @return: Student object
+     */
     public static Student getStudent(Long Id){
         try {
             Student student = em.find(Student.class, Id);
@@ -78,8 +84,8 @@ public class Queries {
 
     /**
      *   Returns a specific Klass name for a student
-     *   param: klassId
-     *   return: String or null on exception
+     *   @param: klassId
+     *   @return: String or null on exception
      */
     public static String getKlassForStd(long klassId){
         try {
@@ -109,13 +115,19 @@ public class Queries {
     }
 
     public static String getPassword(String email){
-        Query query = em.createQuery("SELECT password from Student WHERE email = '" + email + "'");
-
-        return query.getSingleResult().toString();
+        try {
+            Query query = em.createQuery("SELECT password from Student WHERE email = :email")
+                    .setParameter("email", email);
+            return query.getSingleResult().toString();
+        }catch (NoResultException e){
+            System.err.println("Error caught: " + e.toString());
+        }
+        return null;
     }
 
     public static int getID(String email){
-        Query query = em.createQuery("SELECT id from Student WHERE email = '" + email + "'");
+        Query query = em.createQuery("SELECT id from Student WHERE email = :email")
+                                    .setParameter("email", email);
 
         return Integer.parseInt(query.getSingleResult().toString());
 
