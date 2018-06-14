@@ -26,16 +26,16 @@ public class CodeBookTestEnv {
         Klass newklass2 = new Klass("klass2");
 
         //creating students
-        Student std1 =  new Student("john", "asd@gmil.com", "pwd");
-        Student std2 =  new Student("john", "asd@gmil.com", "pwd");
-        Student std3 =  new Student("john", "asd@gmil.com", "pwd");
-        Student std4 =  new Student("john", "asd@gmil.com", "pwd");
+        Student std1 =  new Student("john1", "as44d@gmil.com", "pw2d");
+        Student std2 =  new Student("john2", "as23d@gmil.com", "p5wd");
+        Student std3 =  new Student("john3", "as3d@gmil.com", "pw3d");
+        Student std4 =  new Student("john4", "as321d@gmil.com", "pw4d");
 
         //adding students to class
         newklass.addStudent(std1);
         newklass.addStudent(std2);
         newklass2.addStudent(std3);
-        newklass2.addStudent(std3);
+        newklass2.addStudent(std4);
 
         //adding them to database
         em.getTransaction().begin();

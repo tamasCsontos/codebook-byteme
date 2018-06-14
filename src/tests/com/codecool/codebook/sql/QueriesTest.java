@@ -2,6 +2,10 @@ package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -13,13 +17,12 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class QueriesTest {
+    private static EntityManagerFactory entityManagerFactory;
+    protected static EntityManager entityManager;
 
-    /**
-     *  Simple test for getAllStudentInfo function
-     *  @return: void
-     */
-    @Test
-    public void getAllStudentInfo() {
+    @Before
+    public void populateTDB() {
+        Queries.setEnv("codebookTestPU");
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
         EntityManager em = emf.createEntityManager();
@@ -33,7 +36,7 @@ public class QueriesTest {
         Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
         Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
         Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
-        Student std4 =  new Student("john3", "asd3@gmil.com", "p1wd");
+        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
 
         //adding students to class
         newklass.addStudent(std1);
@@ -56,10 +59,23 @@ public class QueriesTest {
         //closing entity manager
         em.close();
         emf.close();
+    }
 
+
+
+
+    /**
+     *  Simple test for getAllStudentInfo function
+     *  @return: void
+     */
+    @Test
+    public void getAllStudentInfo() {
+        Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
+        Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
+        Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
+        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
 
         List list = Queries.getAllStudentInfo();
-
 
         //Cast objects to Student objects
         Student student1 = (Student) list.get(0);
@@ -72,8 +88,6 @@ public class QueriesTest {
         assertEquals(std2.getEmail(), student2.getEmail());
         assertEquals(std3.getEmail(), student3.getEmail());
         assertEquals(std4.getEmail(), student4.getEmail());
-
-
     }
 
     @Test
