@@ -31,14 +31,7 @@ public class SpecificWorkplaceController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("workplace", Queries.getWorkplace(pathParameter));
         context.setVariable("students", Queries.getAllStudentInWorkplace(pathParameter));
-        try {
-            engine.process("workplace.html", context, resp.getWriter());
-        }catch (TemplateProcessingException e){
-            resp.resetBuffer();
-            context.clearVariables();
-            context.setVariable("traceback", e);
-            engine.process("error.html", context, resp.getWriter());
-            e.printStackTrace();
-        }
+        engine.process("workplace.html", context, resp.getWriter());
+
     }
 }
