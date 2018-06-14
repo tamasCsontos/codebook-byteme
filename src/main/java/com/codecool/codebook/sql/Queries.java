@@ -93,4 +93,17 @@ public class Queries {
         etr.commit();
 
     }
+
+    public static String getPassword(String email){
+        Query query = em.createQuery("SELECT password from Student WHERE email = '" + email + "'");
+
+        return query.getSingleResult().toString();
+    }
+
+    public static int getID(String email){
+        Query query = em.createQuery("SELECT id from Student WHERE email = '" + email + "'");
+
+        return Integer.parseInt(query.getSingleResult().toString());
+
+    }
 }

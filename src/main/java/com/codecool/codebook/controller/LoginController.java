@@ -1,7 +1,8 @@
 package com.codecool.codebook.controller;
 
+
+import com.codecool.codebook.Password;
 import com.codecool.codebook.config.TemplateEngineUtil;
-import com.codecool.codebook.model.Student;
 import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -14,31 +15,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 
-import com.codecool.codebook.sql.Queries;
-import org.thymeleaf.exceptions.TemplateProcessingException;
-
-@WebServlet(urlPatterns = {"/"})
-public class IndexController extends HttpServlet {
-
+@WebServlet(urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("students", Queries.getAllStudent());
-        context.setVariable("userID", session.getAttribute("userID"));
-        try {
-            engine.process("index.html", context, resp.getWriter());
-        }catch (TemplateProcessingException e){
-            resp.resetBuffer();
-            context.clearVariables();
-            context.setVariable("traceback", e);
-            engine.process("error.html", context, resp.getWriter());
-            e.printStackTrace();
+        engine.process("login.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        String hashedPWFromDB = Queries.getPassword(email);
+        int userID = Queries.getID(email);
+
+        if (Password.checkPassword(password, hashedPWFromDB)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("userID", userID);
+        } else {
+            System.out.println("WRONGPASSWORDORUSERNAME");
         }
+        response.sendRedirect("/");
     }
 }
