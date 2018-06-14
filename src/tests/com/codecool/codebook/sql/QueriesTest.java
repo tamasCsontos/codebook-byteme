@@ -20,8 +20,8 @@ public class QueriesTest {
     private static EntityManagerFactory entityManagerFactory;
     protected static EntityManager entityManager;
 
-    @Before
-    public void populateTDB() {
+    @BeforeClass
+    public static void populateTDB() {
         Queries.setEnv("codebooktestPU");
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
