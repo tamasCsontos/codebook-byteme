@@ -2,23 +2,18 @@ package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Student;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.Before;
+import com.codecool.codebook.model.Workplace;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class QueriesTest {
-    private static EntityManagerFactory entityManagerFactory;
-    protected static EntityManager entityManager;
 
     @BeforeClass
     public static void populateTDB() {
@@ -30,6 +25,7 @@ public class QueriesTest {
         //manual datas
         Klass newklass = new Klass("klass");
         Klass newklass2 = new Klass("klass2");
+        Workplace workplace = new Workplace("Pedigre", "Dogfood");
 
 
         //creating students
@@ -44,7 +40,7 @@ public class QueriesTest {
         newklass2.addStudent(std3);
         newklass2.addStudent(std4);
 
-
+        workplace.addStudent(std4);
 
         //adding them to database
         em.getTransaction().begin();
@@ -54,6 +50,7 @@ public class QueriesTest {
         em.persist(std2);
         em.persist(std3);
         em.persist(std4);
+        em.persist(workplace);
         em.getTransaction().commit();
 
         //closing entity manager
@@ -126,9 +123,13 @@ public class QueriesTest {
 
     @Test
     public void getWorkplaceForStd() {
+        String workplaceName = Queries.getWorkplaceForStd(1);
+        assertEquals("Pedigre", workplaceName);
     }
 
     @Test
     public void getKlassForStd() {
+        String klassName = Queries.getKlassForStd(1);
+        assertEquals("klass", klassName);
     }
 }
