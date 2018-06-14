@@ -10,10 +10,17 @@
 </head>
 <body>
     <h1>Workplaces</h1>
+<div th:if="${userName == null}">
 
-    <div th:each="workplace : ${workplaces}">
-        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
-    </div>
+</div>
+<div th:if="${userName != null}">
+    <a href="/logout">lógáut</a>
+</div>
+
+    <a href="/">Students</a>
+<div th:each="workplace : ${workplaces}">
+    <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+</div>
     <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

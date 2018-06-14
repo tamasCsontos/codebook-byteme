@@ -48,6 +48,7 @@ public class LoginController extends HttpServlet {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("userID", userID);
+                session.setAttribute("email", email);
 
                 response.sendRedirect("/");
             }

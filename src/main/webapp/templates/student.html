@@ -13,13 +13,22 @@
     <div th:text="${student.name}"></div>
     <div th:text="${student.email}"></div>
 
-    <h2>Workplace:</h2>
-    <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
-    <div th:text="${student.workplaceFeedback}"></div>
+<h2>Workplace:</h2>
+<div th:switch="${workplace}">
+    <p th:case="'No Workplace'">No Workplace for this User</p>
+    <div th:case="*">
+        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+    </div>
+</div>
 
-    <h2>Klass:</h2>
-    <div th:text="${klass.name}"></div>
 
+<h2>Class:</h2>
+<div th:switch="${klass}">
+    <p th:case="'No Klass'">No Class for this User</p>
+    <div th:case="*">
+        <p th:text="${klass.name}"></p>
+    </div>
+</div>
     <div th:replace="footer.html :: copy"></div>
 
 </body>

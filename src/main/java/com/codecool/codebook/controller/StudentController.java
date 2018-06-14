@@ -29,9 +29,18 @@ public class StudentController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        Student student = Queries.getStudent(pathParameter);
         context.setVariable("student", Queries.getStudent(pathParameter));
-        context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
-        context.setVariable("klass", Queries.getStudentKlass(pathParameter));
+        if (student.getWorkplace() != null){
+            context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
+        } else {
+            context.setVariable("workplace", "No Workplace");
+        }
+        if (student.getKlass() != null){
+            context.setVariable("klass", Queries.getStudentKlass(pathParameter));
+        } else {
+            context.setVariable("klass", "No Klass");
+        }
         engine.process("student.html", context, resp.getWriter());
     }
 }
