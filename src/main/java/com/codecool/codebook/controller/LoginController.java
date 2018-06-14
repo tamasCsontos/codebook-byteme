@@ -29,18 +29,34 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        WebContext context = new WebContext(request, response, request.getServletContext());
+
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
         String hashedPWFromDB = Queries.getPassword(email);
-        int userID = Queries.getID(email);
 
-        if (Password.checkPassword(password, hashedPWFromDB)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userID", userID);
-        } else {
-            System.out.println("WRONGPASSWORDORUSERNAME");
+        try {
+            if (hashedPWFromDB == null | !Password.checkPassword(password, hashedPWFromDB)) {
+
+                context.setVariable("onError", "Wrong email or password");
+                engine.process("login.html", context, response.getWriter());
+
+            } else {
+
+                int userID = Queries.getID(email);
+                HttpSession session = request.getSession();
+                session.setAttribute("userID", userID);
+
+                response.sendRedirect("/");
+            }
+        }catch (IllegalArgumentException e){
+            System.err.println("Error caught: " + e.toString());
+
+            context.setVariable("onError", "Wrong email or password");
+            engine.process("login.html", context, response.getWriter());
+
         }
-        response.sendRedirect("/");
     }
 }

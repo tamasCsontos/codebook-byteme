@@ -10,9 +10,9 @@
     <br>
 
     <a href="/">Students</a>
-    <div th:each="workplace : ${workplaces}">
-        <p th:text="${workplace}"></p>
-    </div>
+<div th:each="workplace : ${workplaces}">
+    <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+</div>
 
 </body>
 </html>
