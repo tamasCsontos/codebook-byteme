@@ -19,10 +19,9 @@ public class Queries {
     private static EntityTransaction etr = em.getTransaction();
 
 
-
-    /*
-        Simple select query
-        return: List : Student
+    /**
+     * Simple select query
+     * @return List
      */
     public static List getAllStudentInfo(){
         Query query = em.createQuery("SELECT s FROM Student s");
@@ -31,10 +30,10 @@ public class Queries {
     }
 
 
-    /*
-        Returns all the students from a specific klass
-        params: klass_id : long
-        return: Set : Student obj
+    /**
+     *  Returns all the students from a specific klass
+     *  @params: klass_id : long
+     *  @return: Set : Student obj
      */
     public static Set getAllStudentInKlass(long klassId){
         try {
@@ -47,10 +46,10 @@ public class Queries {
     }
 
 
-    /*
-        Returns a specific Workplace name for a student
-        param: workplace_id : long
-        returtn: String or null on exception
+    /**
+     *   Returns a specific Workplace name for a student
+     *   @param: workplace_id : long
+     *   @returtn: String or null on exception
      */
     public static String getWorkplaceForStd(long workplaceId){
         try {
@@ -63,10 +62,10 @@ public class Queries {
     }
 
 
-    /*
-        Returns a specific Klass name for a student
-        param: klass_id
-        return: String or null on exception
+    /**
+     *   Returns a specific Klass name for a student
+     *   param: klassId
+     *   return: String or null on exception
      */
     public static String getKlassForStd(long klassId){
         try {
