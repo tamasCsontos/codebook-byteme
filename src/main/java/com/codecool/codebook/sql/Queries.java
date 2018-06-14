@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Queries {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookPU");
     private static EntityManager em = emf.createEntityManager();
     private static EntityTransaction etr = em.getTransaction();
 
@@ -28,6 +28,18 @@ public class Queries {
 
         return query.getResultList();
     }
+
+
+    public static Student getStudent(Long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     /**

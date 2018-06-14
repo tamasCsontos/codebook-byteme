@@ -19,20 +19,19 @@ import java.util.Arrays;
 import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 
-@WebServlet(urlPatterns = {"/"})
-public class IndexController extends HttpServlet {
+@WebServlet(urlPatterns = {"/student/*"})
+public class StudentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         HttpSession session = req.getSession();
+        Long pathParameter = Long.valueOf(req.getParameter("id"));
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("students", Queries.getAllStudentInfo());
-        context.setVariable("userID", session.getAttribute("userID"));
+        context.setVariable("student", Queries.getStudent(pathParameter));
         try {
-            engine.process("index.html", context, resp.getWriter());
+            engine.process("student.html", context, resp.getWriter());
         }catch (TemplateProcessingException e){
             resp.resetBuffer();
             context.clearVariables();
