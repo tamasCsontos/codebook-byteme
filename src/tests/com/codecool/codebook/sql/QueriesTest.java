@@ -22,9 +22,9 @@ public class QueriesTest {
 
     @Before
     public void populateTDB() {
-        Queries.setEnv("codebookTestPU");
+        Queries.setEnv("codebooktestPU");
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
         EntityManager em = emf.createEntityManager();
 
         //manual datas
