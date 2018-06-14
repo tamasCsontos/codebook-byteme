@@ -30,10 +30,9 @@ public class MessageController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         HttpSession session = req.getSession();
-        if (session.getAttribute("id") != null){
+        if (session.getAttribute("userID") != null){
             Long receiverId = Long.valueOf(req.getParameter("id"));
             Long senderId = new Long((int) session.getAttribute("userID"));
-
             Student senderStudent = Queries.getStudent(senderId);
             Student recieverStudent = Queries.getStudent(receiverId);
             context.setVariable("student1", senderStudent);
