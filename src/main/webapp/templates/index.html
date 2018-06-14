@@ -17,6 +17,7 @@
 <br>
 
 <a href="/workplaces">Workplaces</a>
+    <br><br><br>
 <div th:each="student : ${students}">
     <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
 </div>

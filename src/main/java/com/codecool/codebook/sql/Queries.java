@@ -44,6 +44,17 @@ public class Queries {
     }
 
 
+    public static Workplace getWorkplace(Long Id){
+        try {
+            Workplace workplace = em.find(Workplace.class, Id);
+            return workplace;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     /**
      *  Returns all the students from a specific klass
      *  @params: klass_id : long
@@ -94,11 +105,9 @@ public class Queries {
     }
 
     public static List getAllWorkplace(){
-        Query query = em.createQuery("SELECT name from Workplace ");
+        Query query = em.createQuery("SELECT s FROM Workplace s");
 
         return query.getResultList();
-
-
     }
 
     public static void addNewStudent(Student student) {
