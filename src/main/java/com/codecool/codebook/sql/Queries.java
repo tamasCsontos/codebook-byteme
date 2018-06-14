@@ -82,6 +82,16 @@ public class Queries {
         return null;
     }
 
+    public static Set getAllJobsInWorkplace(long workplaceId){
+        try {
+            Workplace workplace = em.find(Workplace.class, workplaceId);
+            return workplace.getJobs();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Workplace getStudentWorkplace(long Id){
         try {
             Student student = em.find(Student.class, Id);
