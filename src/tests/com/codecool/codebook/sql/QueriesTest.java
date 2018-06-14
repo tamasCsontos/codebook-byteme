@@ -132,4 +132,9 @@ public class QueriesTest {
         String klassName = Queries.getKlassForStd(1);
         assertEquals("klass", klassName);
     }
+
+    @Test
+    public void getStudent(){
+
+    }
 }
