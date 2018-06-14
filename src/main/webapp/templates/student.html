@@ -8,7 +8,15 @@
 </div>
 <div th:text="${student.email}">
 </div>
+
+<h2>Workplace:</h2>
+
+<a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
 <div th:text="${student.workplaceFeedback}">
+</div>
+
+<h2>Klass:</h2>
+<div th:text="${klass.name}">
 </div>
 
 </body>

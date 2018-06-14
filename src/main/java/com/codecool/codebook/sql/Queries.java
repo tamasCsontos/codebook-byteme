@@ -45,6 +45,17 @@ public class Queries {
     }
 
 
+    public static Workplace getWorkplace(Long Id){
+        try {
+            Workplace workplace = em.find(Workplace.class, Id);
+            return workplace;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
     /**
      *  Returns all the students from a specific klass
@@ -55,6 +66,36 @@ public class Queries {
         try {
             Klass klass = em.find(Klass.class, klassId);
             return klass.getStudents();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Set getAllStudentInWorkplace(long workplaceId){
+        try {
+            Workplace workplace = em.find(Workplace.class, workplaceId);
+            return workplace.getStudents();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Workplace getStudentWorkplace(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getWorkplace();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Klass getStudentKlass(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getKlass();
         }catch (IllegalArgumentException e){
             e.printStackTrace();
         }
@@ -96,11 +137,9 @@ public class Queries {
     }
 
     public static List getAllWorkplace(){
-        Query query = em.createQuery("SELECT name from Workplace ");
+        Query query = em.createQuery("SELECT s FROM Workplace s");
 
         return query.getResultList();
-
-
     }
 
     public static void addNewStudent(Student student) {
