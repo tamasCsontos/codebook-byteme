@@ -72,6 +72,36 @@ public class Queries {
         return null;
     }
 
+    public static Set getAllStudentInWorkplace(long workplaceId){
+        try {
+            Workplace workplace = em.find(Workplace.class, workplaceId);
+            return workplace.getStudents();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Workplace getStudentWorkplace(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getWorkplace();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Klass getStudentKlass(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getKlass();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      *   Returns a specific Workplace name for a student

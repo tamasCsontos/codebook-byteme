@@ -8,5 +8,9 @@
 </div>
 <div th:text="${workplace.description}">
 </div>
+<h2>Students working here:</h2>
+<div th:each="student : ${students}">
+    <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
+</div>
 
 </body>
