@@ -4,10 +4,15 @@
 </head>
 <body>
 <h1>csokolom</h1>
-<a href="/login">Login</a>
-<br>
-    <a href="/registration">Register Here</a>
-    <br>
+<div th:if="${userName == null}">
+
+    <a href="/login">Login</a><br>
+
+    <a href="/registration">Register Here</a><br>
+</div>
+<div th:if="${userName != null}">
+    <a href="/logout">lógáut</a>
+</div>
 
     <a href="/">Students</a>
 <div th:each="workplace : ${workplaces}">

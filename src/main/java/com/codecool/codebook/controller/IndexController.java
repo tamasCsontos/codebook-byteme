@@ -23,6 +23,16 @@ import org.thymeleaf.exceptions.TemplateProcessingException;
 @WebServlet(urlPatterns = {"/"})
 public class IndexController extends HttpServlet {
 
+    public void checkSession(HttpSession session, WebContext context){
+        try {
+            if (session.getAttribute("userID") != null) {
+                Long id = new Long((int) session.getAttribute("userID"));
+                context.setVariable("userName", Queries.getStudent(id));
+            }
+        } catch (NullPointerException e){
+            System.err.println("Error caught: " + e.toString());
+        }
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -33,13 +43,7 @@ public class IndexController extends HttpServlet {
 
         List students = Queries.getAllStudentInfo();
 
-        try {
-            Long id = new Long((int) session.getAttribute("userID"));
-            context.setVariable("userName", Queries.getStudent(id) );
-        } catch (NullPointerException e){
-            System.err.println("Error caught: " + e.toString());
-
-        }
+        checkSession(session, context);
 
         context.setVariable("students", students);
 
