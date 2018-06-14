@@ -3,6 +3,23 @@
 <head>
 </head>
 <body>
-    <h1>csokolom</h1>
+<h1>csokolom</h1>
+<div th:switch="${userID}">
+    <h2 th:case="null">no user logged in</h2>
+    <div th:case="*">
+        <h2 th:text="'id: ' + ${userID}"></h2>
+    </div>
+</div>
+<a href="/login">Login</a>
+<br>
+
+<a href="/registration">Register Here</a>
+<br>
+
+<a href="/workplaces">Workplaces</a>
+<div th:each="student : ${students}">
+    <p th:text="${student}"></p>
+</div>
+
 </body>
 </html>

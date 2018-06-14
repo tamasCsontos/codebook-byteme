@@ -14,6 +14,7 @@ public class Student {
     private String email;
     private String workplaceFeedback;
     private String phonenumber;
+    private String password;
 
     @ManyToOne
     private Workplace workplace;
@@ -30,11 +31,10 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String email, String workplaceFeedback, String phonenumber) {
+    public Student(String name, String email, String password) {
         this.name = name;
         this.email = email;
-        this.workplaceFeedback = workplaceFeedback;
-        this.phonenumber = phonenumber;
+        this.password = password;
     }
 
     public long getId() {
@@ -93,4 +93,11 @@ public class Student {
         this.klass = klassid;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

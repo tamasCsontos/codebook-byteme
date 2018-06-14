@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 public class CodeBook {
     public static void populateDb(EntityManager em) {
 
-        Student student = new Student("Testname", "e@mail.hu", "Testfeedback", "06201234567");
+        Student student = new Student("Testname", "e@mail.hu", "examplepassword");
         Workplace workPlace = new Workplace("Tname", "Tdesc");
         School school = new School(Location.BUDAPEST);
         Klass klass = new Klass("BPtest");
