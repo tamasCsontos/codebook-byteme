@@ -63,6 +63,9 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+*.xml
+*.iml
+
 # Sonarlint plugin
 .idea/sonarlint
 
@@ -106,3 +109,5 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,intellij
+
+src/main/resources/META-INF/
