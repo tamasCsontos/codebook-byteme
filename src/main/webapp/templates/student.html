@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${student.name} + ' | CodeBook'"> </title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
 </head>
 <body>
-    <h1> Data</h1>
-    <div th:text="${student.name}">
-    </div>
-    <div th:text="${student.email}">
-    </div>
+    <h1>Student Informations</h1>
+    <div th:text="${student.name}"></div>
+    <div th:text="${student.email}"></div>
 
     <h2>Workplace:</h2>
-
     <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
-    <div th:text="${student.workplaceFeedback}">
-    </div>
+    <div th:text="${student.workplaceFeedback}"></div>
 
     <h2>Klass:</h2>
-    <div th:text="${klass.name}">
-</div>
+    <div th:text="${klass.name}"></div>
+
+    <div th:replace="footer.html :: copy"></div>
 
 </body>
+</html>

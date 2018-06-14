@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title text="Workplaces | CodeBook"></title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
 </head>
 <body>
-<h1></h1>
-<a href="/login">Login</a>
-<br>
-    <a href="/registration">Register Here</a>
-    <br>
+    <h1>Workplaces</h1>
 
-    <a href="/">Students</a>
-<div th:each="workplace : ${workplaces}">
-    <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
-</div>
-
+    <div th:each="workplace : ${workplaces}">
+        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+    </div>
+    <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

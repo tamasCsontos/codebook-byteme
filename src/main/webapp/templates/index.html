@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to CodeBook</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
 </head>
 <body>
     <h1>CodeBook</h1>
@@ -28,8 +32,6 @@
             <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
         </div>
     </div>
-
-    <div th:replace=" footer.html :: copy"></div>
 
 </body>
 </html>

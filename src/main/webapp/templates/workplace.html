@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${workplace.name} + ' | CodeBook'"></title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
 </head>
 <body>
     <h1> Data</h1>
@@ -20,4 +24,5 @@
         <a th:text="${job.name}"></a>
     </div>
 
+    <div th:replace="footer.html :: copy"></div>
 </body>
