@@ -42,4 +42,8 @@ public class Klass {
         student.setKlass(this);
         students.add(student);
     }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
 }
