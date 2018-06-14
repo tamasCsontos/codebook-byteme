@@ -23,16 +23,7 @@ import org.thymeleaf.exceptions.TemplateProcessingException;
 @WebServlet(urlPatterns = {"/"})
 public class IndexController extends HttpServlet {
 
-    public void checkSession(HttpSession session, WebContext context){
-        try {
-            if (session.getAttribute("userID") != null) {
-                Long id = new Long((int) session.getAttribute("userID"));
-                context.setVariable("userName", Queries.getStudent(id));
-            }
-        } catch (NullPointerException e){
-            System.err.println("Error caught: " + e.toString());
-        }
-    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,20 +36,21 @@ public class IndexController extends HttpServlet {
 
         try {
             Long id = new Long((int) session.getAttribute("userID"));
-            context.setVariable("userName", Queries.getStudent(id) );
-        } catch (NullPointerException e){
+            context.setVariable("userName", Queries.getStudent(id));
+        } catch (NullPointerException e) {
             System.err.println("Error caught: " + e.toString() + " in IndexController.doGet()");
-
-        context.setVariable("students", students);
-
-        try {
-            engine.process("index.html", context, resp.getWriter());
-        }catch (TemplateProcessingException e){
-            resp.resetBuffer();
-            context.clearVariables();
-            context.setVariable("traceback", e);
-            engine.process("error.html", context, resp.getWriter());
-            e.printStackTrace();
         }
-    }
+            context.setVariable("students", students);
+
+            try {
+                engine.process("index.html", context, resp.getWriter());
+            } catch (TemplateProcessingException e) {
+                resp.resetBuffer();
+                context.clearVariables();
+                context.setVariable("traceback", e);
+                engine.process("error.html", context, resp.getWriter());
+                e.printStackTrace();
+            }
+        }
+
 }
