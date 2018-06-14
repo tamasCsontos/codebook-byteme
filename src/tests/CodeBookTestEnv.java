@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 public class CodeBookTestEnv {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
         EntityManager em = emf.createEntityManager();
 
 

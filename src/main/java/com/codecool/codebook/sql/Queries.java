@@ -50,6 +50,18 @@ public class Queries {
     }
 
 
+    public static Workplace getWorkplace(Long Id){
+        try {
+            Workplace workplace = em.find(Workplace.class, Id);
+            return workplace;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     /**
      *  Returns all the students from a specific klass
      *  @params: klass_id : long
@@ -59,6 +71,36 @@ public class Queries {
         try {
             Klass klass = em.find(Klass.class, klassId);
             return klass.getStudents();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Set getAllStudentInWorkplace(long workplaceId){
+        try {
+            Workplace workplace = em.find(Workplace.class, workplaceId);
+            return workplace.getStudents();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Workplace getStudentWorkplace(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getWorkplace();
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Klass getStudentKlass(long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student.getKlass();
         }catch (IllegalArgumentException e){
             e.printStackTrace();
         }
@@ -100,11 +142,9 @@ public class Queries {
     }
 
     public static List getAllWorkplace(){
-        Query query = em.createQuery("SELECT name from Workplace ");
+        Query query = em.createQuery("SELECT s FROM Workplace s");
 
         return query.getResultList();
-
-
     }
 
     public static void addNewStudent(Student student) {
@@ -130,6 +170,21 @@ public class Queries {
                                     .setParameter("email", email);
 
         return Integer.parseInt(query.getSingleResult().toString());
+
+    }
+
+    public static void deleteStudent(String email){
+        etr.begin();
+        Query query = em.createQuery("DELETE from Student where email = '" + email + "'");
+        query.executeUpdate();
+        etr.commit();
+    }
+
+    public static Student getStudent(String email){
+        Query query = em.createQuery("select id from Student where email = '" + email + "'");
+        Long id = Long.parseLong(query.getSingleResult().toString());
+
+        return em.find(Student.class, id);
 
     }
 

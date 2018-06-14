@@ -60,4 +60,8 @@ public class Workplace {
         actualJob.setWorkplace(this);
         jobs.add(actualJob);
     }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
 }

@@ -19,19 +19,26 @@ import java.util.Arrays;
 import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 
-@WebServlet(urlPatterns = {"/student/*"})
-public class StudentController extends HttpServlet {
+@WebServlet(urlPatterns = {"/workplace/*"})
+public class SpecificWorkplaceController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        HttpSession session = req.getSession();
         Long pathParameter = Long.valueOf(req.getParameter("id"));
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("student", Queries.getStudent(pathParameter));
-        context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
-        context.setVariable("klass", Queries.getStudentKlass(pathParameter));
-        engine.process("student.html", context, resp.getWriter());
+        context.setVariable("workplace", Queries.getWorkplace(pathParameter));
+        context.setVariable("students", Queries.getAllStudentInWorkplace(pathParameter));
+        try {
+            engine.process("workplace.html", context, resp.getWriter());
+        }catch (TemplateProcessingException e){
+            resp.resetBuffer();
+            context.clearVariables();
+            context.setVariable("traceback", e);
+            engine.process("error.html", context, resp.getWriter());
+            e.printStackTrace();
+        }
     }
 }
