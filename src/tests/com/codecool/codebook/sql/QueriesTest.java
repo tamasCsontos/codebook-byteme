@@ -21,11 +21,7 @@ public class QueriesTest {
     protected static EntityManager entityManager;
 
 
-    @Before
-    public void setDB(){
-        //setting the db name
-        Queries.setDbName("codebookTestPU");
-    }
+
 
     /**
      *  Simple test for getAllStudentInfo function
@@ -34,7 +30,7 @@ public class QueriesTest {
     @Test
     public void getAllStudentInfo() {
 
-        Queries.setDbName("codebookTestPU");
+        Queries.setEnv("codebookTestPU");
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookTestPU");
         EntityManager em = emf.createEntityManager();

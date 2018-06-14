@@ -113,4 +113,10 @@ public class Queries {
         return Integer.parseInt(query.getSingleResult().toString());
 
     }
+
+    public static void setEnv(String dbName){
+        emf = Persistence.createEntityManagerFactory(dbName);
+        em = emf.createEntityManager();
+        etr = em.getTransaction();
+    }
 }
