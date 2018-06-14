@@ -30,6 +30,18 @@ public class Queries {
     }
 
 
+    public static Student getStudent(Long Id){
+        try {
+            Student student = em.find(Student.class, Id);
+            return student;
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     /**
      *  Returns all the students from a specific klass
      *  @params: klass_id : long
