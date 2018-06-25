@@ -27,10 +27,13 @@ public class MessageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         WebContext context = new WebContext(req, resp, req.getServletContext());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         HttpSession session = req.getSession();
+
         if (session.getAttribute("userID") != null){
+
             Long receiverId = Long.valueOf(req.getParameter("id"));
             Long senderId = new Long((int) session.getAttribute("userID"));
             Student senderStudent = Queries.getStudent(senderId);
@@ -39,7 +42,9 @@ public class MessageController extends HttpServlet {
             context.setVariable("student2", recieverStudent);
             context.setVariable("messages", Queries.getAllMessageBetweenUsers(senderId, receiverId));
             engine.process("message.html", context, resp.getWriter());
+
         } else {
+
             engine.process("messageerror.html", context, resp.getWriter());
 
         }
@@ -48,11 +53,14 @@ public class MessageController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Long receiverId = Long.valueOf(request.getParameter("id"));
         HttpSession session = request.getSession();
+
         Long senderId = new Long((int) session.getAttribute("userID"));
         String textMessage = request.getParameter("message");
         Message message = new Message(textMessage);
+
         message.setReceiverStudent(Queries.getStudent(receiverId));
         message.setSenderStudent(Queries.getStudent(senderId));
         Queries.addNewMessage(message);
