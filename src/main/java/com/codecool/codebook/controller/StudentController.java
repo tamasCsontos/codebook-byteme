@@ -6,21 +6,19 @@ import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.management.Query;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 
-import com.codecool.codebook.sql.Queries;
-import org.thymeleaf.exceptions.TemplateProcessingException;
 
-@WebServlet(urlPatterns = {"/student/*"})
 public class StudentController extends HttpServlet {
+    Queries queries;
+
+    public StudentController(Queries queries) {
+        this.queries = queries;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,15 +27,15 @@ public class StudentController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        Student student = Queries.getStudent(pathParameter);
-        context.setVariable("student", Queries.getStudent(pathParameter));
+        Student student = queries.getStudent(pathParameter);
+        context.setVariable("student", queries.getStudent(pathParameter));
         if (student.getWorkplace() != null){
-            context.setVariable("workplace", Queries.getStudentWorkplace(pathParameter));
+            context.setVariable("workplace", queries.getStudentWorkplace(pathParameter));
         } else {
             context.setVariable("workplace", "No Workplace");
         }
         if (student.getKlass() != null){
-            context.setVariable("klass", Queries.getStudentKlass(pathParameter));
+            context.setVariable("klass", queries.getStudentKlass(pathParameter));
         } else {
             context.setVariable("klass", "No Klass");
         }

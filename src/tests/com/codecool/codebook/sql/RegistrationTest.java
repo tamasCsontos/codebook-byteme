@@ -1,4 +1,4 @@
-package com.codecool.codebook.sql;
+/*package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.sql.Queries;
@@ -38,4 +38,4 @@ public class RegistrationTest {
         Queries.deleteStudent("TEST@TEST");
     }
 
-}
+}*/
