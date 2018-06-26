@@ -5,12 +5,16 @@ function checkPassword() {
     var submit = document.getElementById("submit");
 
     if (password != confirm_password){
+
         message.innerText = "Passwords are not matching!";
+        message.setAttribute("style", "color: red, font-size: 1,5em");
         submit.setAttribute("disabled", "disabled");
-        submit.setAttribute("style", "mouse: no-drop")
+        submit.setAttribute("style", "mouse: no-drop");
     } else {
         message.innerText = "Matching passwords!";
         submit.removeAttribute("disabled");
         submit.removeAttribute("style");
     }
 }
+
+
