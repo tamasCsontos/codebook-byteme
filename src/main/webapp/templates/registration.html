@@ -28,47 +28,43 @@
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
 
-    <script src="/static/js/confirmpw.js"></script>
+    <script src="/static/js/script.js" defer></script>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
 
 <body>
+    <h1>Welcome to CodeBook</h1>
+    <h2>Registration</h2>
+        <div class="registration">
+            <form action="/registration" method="post">
+                <div id="name">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" minlength="2" required/>
+                </div>
+                <div id="phonenumber">
+                    <label  class="input_label">Phone No.:</label>
+                    <input  name="phonenumber"/>
+                </div>
+                <div>
+                    <label  class="input_label">E-mail:</label>
+                    <input required name="email" type="email"/>
+                </div>
+                <span id="message"></span>
+                <div>
+                    <label class="input_label">Password:</label>
+                    <input id="password" type="password" name="password" required />
+                </div>
+                <div>
+                    <label  class="input_label">Confirm Password:</label>
+                    <input id="confirm_password" type="password" name="confirm_password" onkeyup="checkPassword()" required />
+                </div>
 
-<h1>
-    Registration
-</h1>
-<form action="/registration" method="post">
-    <label>
-        Name
-    </label>
-    <input required name="name"/>
-    <br>
-    <label>
-        Phone No.:
-    </label>
-    <input  name="phonenumber"/>
-    <br>
-    <label>
-        E-mail:
-    </label>
-    <input required name="email"/>
-    <br>
-    <label>Password:
-        <input required id="password" type="password" name="password" onkeyup='check();'/>
-    </label>
-    <br>
-    <label>Confirm Password:
-        <input required id="confirm_password" name="confirm_password" type="password" onkeyup='check();'/>
-        <span id="message"></span>
-    </label>
-    <button id="submit" type="submit" value="registration">Submit</button>
-</form>
+                <button id="submit" type="submit" value="registration" disabled >Register</button>
+            </form>
+        </div>
+
 <div th:replace="footer.html :: copy"></div>
 </body>
 </html>
