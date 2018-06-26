@@ -26,43 +26,49 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
 <body>
-    <h1>CodeBook</h1>
+
+    <div class="body_head">
+        <h1>CodeBook</h1>
+    </div>
+
     <div th:switch="${user}">
-        <h2 th:case="null">No User logged in</h2>
-        <div th:case="*">
+        <div th:case="null" class="name_switch">
+            <h2 >No User logged in!</h2>
+        </div>
+        <div th:case="*" class="name_switch">
             <h2>Welcome <a th:href="@{'/student/?id=' + ${user.getId()}}" th:text="${#strings.capitalize(user.getName())}"></a>! </h2>
         </div>
     </div>
-    <div th:if="${user == null}">
-
-        <a href="/login">Login</a><br>
-
-        <a href="/registration">Register Here</a><br>
+    <div  class="body_buttons">
+        <div th:if="${user == null}">
+            <a href="/login" class="login_btn">Login</a><br>
+            <a href="/registration" class="register_btn">Register Here</a><br>
+        </div>
+        <div th:if="${user != null}">
+            <a href="/logout" class="logout_btn">Logout</a>
+        </div>
     </div>
-    <div th:if="${user != null}">
-        <a href="/logout">Logout</a>
 
-    </div>
-
-
-    <a href="/workplaces">Workplaces</a><br>
     <div>
-        <h3>Students:</h3>
-        <div th:each="student : ${students}">
-            <div th:switch="${user}">
-                <div th:case="null">
-                    <a th:href="@{'/student/?id=' + ${student.Id}}" th:text="${#strings.capitalize(student.name)}"></a>
-                    <a th:href="@{'/message/?id=' + ${student.Id}}">Message</a>
-                </div>
-                <div th:case="*" th:if="${user.getName() != student.name}">
-                    <a th:href="@{'/student/?id=' + ${student.Id}}" th:text="${#strings.capitalize(student.name)}"></a>
-                    <a th:href="@{'/message/?id=' + ${student.Id}}">Message</a>
+        <a href="/workplaces">Workplaces</a><br>
+    </div>
+
+    <div class="student_list">
+        <div>
+            <h3>Students:</h3>
+            <div th:each="student : ${students}">
+                <div th:switch="${user}">
+                    <div th:case="null">
+                        <a th:href="@{'/student/?id=' + ${student.Id}}" class="btn btn-primary" th:text="${#strings.capitalize(student.name)}"></a>
+                        <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success" >Message</a>
+                    </div>
+                    <div th:case="*" th:if="${user.getName() != student.name}">
+                        <a th:href="@{'/student/?id=' + ${student.Id}}" class="btn btn-primary" th:text="${#strings.capitalize(student.name)}"></a>
+                        <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success">Message</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </body>
 </html>
