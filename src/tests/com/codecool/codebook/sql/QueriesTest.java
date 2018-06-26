@@ -2,14 +2,9 @@ package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Student;
-import com.codecool.codebook.model.Workplace;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

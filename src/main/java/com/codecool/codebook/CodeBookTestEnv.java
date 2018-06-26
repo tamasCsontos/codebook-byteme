@@ -5,9 +5,6 @@ import com.codecool.codebook.model.Student;
 import com.codecool.codebook.model.Workplace;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  * This is a test environment for query testin
@@ -16,11 +13,6 @@ import javax.persistence.Persistence;
 public class CodeBookTestEnv {
 
     public static void createDB(EntityManager em) {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
-//        EntityManager em = emf.createEntityManager();
-
-
-
 
         //creating class
         Klass newklass = new Klass("klass");
@@ -53,9 +45,6 @@ public class CodeBookTestEnv {
         em.persist(workplace);
         em.getTransaction().commit();
 
-        //closing entity manager
-//        em.close();
-//        emf.close();
     }
 
 }
