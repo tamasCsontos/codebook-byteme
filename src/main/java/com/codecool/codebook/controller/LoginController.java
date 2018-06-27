@@ -7,19 +7,22 @@ import com.codecool.codebook.sql.Queries;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.management.Query;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
+
+    Queries queries;
+
+    public LoginController(Queries queries) {
+        this.queries = queries;
+    }
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -27,7 +30,7 @@ public class LoginController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
@@ -35,8 +38,8 @@ public class LoginController extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String hashedPWFromDB = Queries.getPassword(email);
-        int userID = Queries.getID(email);
+        String hashedPWFromDB = queries.getPassword(email);
+        int userID = queries.getID(email);
 
         try {
             if (hashedPWFromDB == null | !Password.checkPassword(password, hashedPWFromDB) | userID < 0) {
