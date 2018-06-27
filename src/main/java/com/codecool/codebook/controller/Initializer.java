@@ -1,6 +1,8 @@
 package com.codecool.codebook.controller;
 
+import com.codecool.codebook.Password;
 import com.codecool.codebook.sql.Queries;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Persistence;
 import javax.servlet.ServletContext;
@@ -20,12 +22,15 @@ public class Initializer implements ServletContextListener {
     private StudentController studentController;
     private WorkplaceController workplaceController;
     private Queries queries;
+    private BCrypt bCrypt;
+    private Password password;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
 
         instantiateQueries();
+        instantiatePassword();
         instantiateControllers();
 
         context.addServlet("indexController", indexController).addMapping("/");
@@ -46,10 +51,10 @@ public class Initializer implements ServletContextListener {
 
     private void instantiateControllers(){
         indexController = new IndexController(queries);
-        loginController = new LoginController(queries);
+        loginController = new LoginController(queries, password);
         logoutController = new LogoutController();
         messageController = new MessageController(queries);
-        registrationController = new RegistrationController(queries);
+        registrationController = new RegistrationController(queries, password);
         specificWorkplaceController = new SpecificWorkplaceController(queries);
         studentController = new StudentController(queries);
         workplaceController = new WorkplaceController(queries);
@@ -57,5 +62,10 @@ public class Initializer implements ServletContextListener {
 
     private void instantiateQueries() {
         queries = new Queries(Persistence.createEntityManagerFactory("codebookPU"));
+    }
+
+    private void instantiatePassword() {
+        bCrypt = new BCrypt();
+        password = new Password(bCrypt);
     }
 }

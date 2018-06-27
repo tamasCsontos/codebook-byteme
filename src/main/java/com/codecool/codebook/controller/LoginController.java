@@ -16,9 +16,11 @@ import java.io.IOException;
 public class LoginController extends HttpServlet {
 
     Queries queries;
+    Password passwordManager;
 
-    public LoginController(Queries queries) {
+    public LoginController(Queries queries, Password password) {
         this.queries = queries;
+        this.passwordManager = password;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class LoginController extends HttpServlet {
         int userID = queries.getID(email);
 
         try {
-            if (hashedPWFromDB == null | !Password.checkPassword(password, hashedPWFromDB) | userID < 0) {
+            if (hashedPWFromDB == null | !passwordManager.checkPassword(password, hashedPWFromDB) | userID < 0) {
 
                 context.setVariable("onError", "Wrong email or password");
                 engine.process("login.html", context, response.getWriter());

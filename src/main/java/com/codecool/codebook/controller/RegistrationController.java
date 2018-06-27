@@ -14,9 +14,11 @@ import java.io.IOException;
 
 public class RegistrationController extends HttpServlet {
     Queries queries;
+    Password passwordManager;
 
-    public RegistrationController(Queries queries) {
+    public RegistrationController(Queries queries, Password password) {
         this.queries = queries;
+        this.passwordManager = password;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class RegistrationController extends HttpServlet {
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phonenumber");
 
-        String hashedPAssword = Password.hashPassword(password);
+        String hashedPAssword = passwordManager.hashPassword(password);
         Student newStudent = new Student(name, email, hashedPAssword);
 
         if (phoneNumber != null){
