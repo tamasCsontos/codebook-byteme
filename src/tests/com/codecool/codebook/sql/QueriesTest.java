@@ -22,10 +22,7 @@ public class QueriesTest {
     public void populateTDB() {
         CodeBookTestEnv.createDB(em);
     }
-
-
-
-
+    
     /**
      *  Simple test for getAllStudentInfo function
      *  @return: void
