@@ -32,7 +32,7 @@ function checkEmail(){
             email: email
         };
 
-        $.get("check", $.param(params), function (response) {
+        $.post("check", $.param(params), function (response) {
             console.log(response);
             debugger;
             if (response === "true"){

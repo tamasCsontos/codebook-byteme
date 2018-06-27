@@ -18,7 +18,7 @@ public class QueryController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
         String email = req.getParameter("email");
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
@@ -32,6 +32,12 @@ public class QueryController extends HttpServlet {
 
         out.flush();
         out.close();
-
     }
+
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/");
+    }
+
 }
