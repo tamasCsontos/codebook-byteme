@@ -39,6 +39,11 @@
     <h2>Registration</h2>
         <div class="registration">
             <form action="/registration" method="post">
+                <div id="wrong_email">&#160</div>
+                <div>
+                    <label  class="input_label">E-mail:</label>
+                    <input id="email" name="email" type="email" onchange="checkEmail()" required/>
+                </div>
                 <div id="name">
                     <label for="name">Name:</label>
                     <input type="text" name="name" minlength="2" required/>
@@ -47,12 +52,7 @@
                     <label  class="input_label">Phone No.:</label>
                     <input  name="phonenumber"/>
                 </div>
-                <span id="wrong_email" ></span>
-                <div>
-                    <label  class="input_label">E-mail:</label>
-                    <input id="email" name="email" type="email" onchange="checkEmail()" required/>
-                </div>
-                <span id="wrong_password"></span>
+                <div id="wrong_password">&#160</div>
                 <div>
                     <label class="input_label">Password:</label>
                     <input id="password" type="password" name="password" required />
