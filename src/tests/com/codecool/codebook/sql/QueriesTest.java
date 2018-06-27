@@ -21,12 +21,8 @@ public class QueriesTest {
     @Before
     public void populateTDB() {
         CodeBookTestEnv.createDB(em);
-        System.out.println("main called");
     }
-
-
-
-
+    
     /**
      *  Simple test for getAllStudentInfo function
      *  @return: void
