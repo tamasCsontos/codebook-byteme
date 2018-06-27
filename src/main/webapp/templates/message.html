@@ -1,34 +1,37 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <h1 th:text="@{'message between ' + ${student1.name} + ' and ' + ${student2.name}}"></h1>
+    <title th:text="${#strings.capitalize(student2.name)}"></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 </head>
 <body>
-<form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
-    <label>
-        Message:
-    </label>
-    <input type="text" id="message" name="message"/>
-    <br>
-    <br>
-    <button id="submit" type="submit" value="send">Send</button>
-</form>
-<br>
-<br>
-
-
-<div th:each="message : ${messages}">
-<div th:switch="${message.receiverStudent}">
-    <div th:case="${student2}">
-        <p th:text="${student1.name} + ': ' + ${message.textmessage} "></p>
+    <header>
+        <h3 th:text="${#strings.capitalize(student2.name)}"></h3>
+    </header>
+    <div>
+        <form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
+            <label>Message:</label>
+            <input type="text" id="message" name="message"/>
+            <button id="submit" type="submit" value="send">Send</button>
+        </form>
     </div>
-    <div th:case="${student1}">
-        <p th:text="${student2.name} + ': ' + ${message.textmessage} "></p>
+    <div th:each="message : ${messages}">
+        <div th:switch="${message.receiverStudent}">
+            <div th:case="${student2}">
+                <p th:text="${#strings.capitalize(student1.name)} + ': ' + ${message.textmessage} "></p>
+            </div>
+            <div th:case="${student1}">
+                <p th:text="${#strings.capitalize(student2.name)} + ': ' + ${message.textmessage} "></p>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 
-
-<div th:replace="footer.html :: copy"></div>
+    <div th:replace="footer.html :: copy"></div>
 </body>
 </html>
