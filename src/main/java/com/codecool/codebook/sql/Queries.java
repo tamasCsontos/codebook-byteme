@@ -226,15 +226,20 @@ public class Queries {
     }
 
     public Student getStudent(String email){
+        try {
 
-        Query query = em.createQuery("select id from Student where email = :email")
-                                    .setParameter("email", email);
+            Query query = em.createQuery("select id from Student where email = :email")
+                                        .setParameter("email", email);
 
-        Long id = Long.parseLong(query.getSingleResult().toString());
+            Long id = Long.parseLong(query.getSingleResult().toString());
 
-        return em.find(Student.class, id);
-
+            return em.find(Student.class, id);
+        }catch (NoResultException e){
+            System.err.println("Error caught: " + e.toString() + "in getStudent()");
+            return null;
+        }
     }
+
 
     /**
      * Set the persistence-unit name for hibernate manually
@@ -245,4 +250,5 @@ public class Queries {
         em = emf.createEntityManager();
         etr = em.getTransaction();
     }
+
 }

@@ -47,11 +47,12 @@
                     <label  class="input_label">Phone No.:</label>
                     <input  name="phonenumber"/>
                 </div>
+                <span id="wrong_email" ></span>
                 <div>
                     <label  class="input_label">E-mail:</label>
-                    <input required name="email" type="email"/>
+                    <input id="email" name="email" type="email" onchange="checkEmail()" required/>
                 </div>
-                <span id="message"></span>
+                <span id="wrong_password"></span>
                 <div>
                     <label class="input_label">Password:</label>
                     <input id="password" type="password" name="password" required />
