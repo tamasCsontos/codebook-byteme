@@ -31,12 +31,9 @@ public class IndexController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         List students = queries.getAllStudentInfo();
-
-        try {
+        if (session.getAttribute("userID") != null) {
             Long id = new Long((int) session.getAttribute("userID"));
             context.setVariable("user", queries.getStudent(id));
-        } catch (NullPointerException e) {
-            System.err.println("Error caught: " + e.toString() + " in IndexController.doGet()");
         }
         context.setVariable("students", students);
 

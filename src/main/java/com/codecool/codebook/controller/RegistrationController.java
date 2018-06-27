@@ -1,5 +1,6 @@
 package com.codecool.codebook.controller;
 
+import com.codecool.codebook.Mailer;
 import com.codecool.codebook.config.TemplateEngineUtil;
 import com.codecool.codebook.Password;
 import com.codecool.codebook.model.Student;
@@ -41,6 +42,8 @@ public class RegistrationController extends HttpServlet {
             newStudent.setPhonenumber(phoneNumber);
         }
         queries.addNewStudent(newStudent);
+        Mailer mailer = new Mailer();
+        mailer.sendWelcome(request);
 
         response.sendRedirect("/");
     }
