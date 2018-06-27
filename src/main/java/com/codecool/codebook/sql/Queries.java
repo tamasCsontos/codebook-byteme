@@ -15,20 +15,21 @@ import java.util.List;
 import java.util.Set;
 
 public class Queries {
-    private static String dbName = "codebookPU";
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(dbName);
-    private static EntityManager em = emf.createEntityManager();
-    private static EntityTransaction etr = em.getTransaction();
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private EntityTransaction etr;
 
-    public static void setDbName(String dbName) {
-        Queries.dbName = dbName;
+    public Queries(EntityManagerFactory emf) {
+        this.emf = emf;
+        this.em = emf.createEntityManager();
+        this.etr = em.getTransaction();
     }
 
     /**
      * Simple select query
      * @return List
      */
-    public static List getAllStudentInfo(){
+    public List getAllStudentInfo(){
 
         Query query = em.createQuery("SELECT s FROM Student s");
 
@@ -40,7 +41,7 @@ public class Queries {
      * @param: Id : long
      * @return: Student object
      */
-    public static Student getStudent(Long Id){
+    public Student getStudent(Long Id){
         try {
             Student student = em.find(Student.class, Id);
             return student;
@@ -51,7 +52,7 @@ public class Queries {
     }
 
 
-    public static Workplace getWorkplace(Long Id){
+    public Workplace getWorkplace(Long Id){
         try {
             Workplace workplace = em.find(Workplace.class, Id);
             return workplace;
@@ -68,7 +69,7 @@ public class Queries {
      *  @params: klass_id : long
      *  @return: Set : Student obj
      */
-    public static Set getAllStudentInKlass(long klassId){
+    public Set getAllStudentInKlass(long klassId){
         try {
             Klass klass = em.find(Klass.class, klassId);
             return klass.getStudents();
@@ -78,7 +79,7 @@ public class Queries {
         return null;
     }
 
-    public static Set getAllStudentInWorkplace(long workplaceId){
+    public Set getAllStudentInWorkplace(long workplaceId){
         try {
             Workplace workplace = em.find(Workplace.class, workplaceId);
             return workplace.getStudents();
@@ -88,7 +89,7 @@ public class Queries {
         return null;
     }
 
-    public static Set getAllJobsInWorkplace(long workplaceId){
+    public Set getAllJobsInWorkplace(long workplaceId){
         try {
             Workplace workplace = em.find(Workplace.class, workplaceId);
             return workplace.getJobs();
@@ -98,7 +99,7 @@ public class Queries {
         return null;
     }
 
-    public static Workplace getStudentWorkplace(long Id){
+    public Workplace getStudentWorkplace(long Id){
         try {
             Student student = em.find(Student.class, Id);
             return student.getWorkplace();
@@ -108,7 +109,7 @@ public class Queries {
         return null;
     }
 
-    public static List getAllMessageBetweenUsers(Long senderId, Long receiverId){
+    public List getAllMessageBetweenUsers(Long senderId, Long receiverId){
 
         Query query = em.createQuery("SELECT s FROM Message s " +
                 "where sender_id = '" + senderId + "' and receiver_Id = '" + receiverId + "' or sender_id = '" + receiverId + "' and receiver_Id = '" + senderId + "' ");
@@ -116,7 +117,7 @@ public class Queries {
         return query.getResultList();
     }
 
-    public static Klass getStudentKlass(long Id){
+    public Klass getStudentKlass(long Id){
         try {
             Student student = em.find(Student.class, Id);
             return student.getKlass();
@@ -132,7 +133,7 @@ public class Queries {
      *   @param: workplace_id : long
      *   @returtn: String or null on exception
      */
-    public static String getWorkplaceForStd(long workplaceId){
+    public String getWorkplaceForStd(long workplaceId){
         try {
             Workplace workplace = em.find(Workplace.class, workplaceId);
             return workplace.getName();
@@ -148,7 +149,7 @@ public class Queries {
      *   @param: klassId
      *   @return: String or null on exception
      */
-    public static String getKlassForStd(long klassId){
+    public String getKlassForStd(long klassId){
         try {
             Klass klass = em.find(Klass.class, klassId);
 
@@ -160,13 +161,13 @@ public class Queries {
         return null;
     }
 
-    public static List getAllWorkplace(){
+    public List getAllWorkplace(){
         Query query = em.createQuery("SELECT s FROM Workplace s");
 
         return query.getResultList();
     }
 
-    public static void addNewStudent(Student student) {
+    public void addNewStudent(Student student) {
         try {
             etr.begin();
             em.persist(student);
@@ -176,14 +177,14 @@ public class Queries {
         }
     }
 
-    public static void addNewMessage(Message message) {
+    public void addNewMessage(Message message) {
         etr.begin();
         em.persist(message);
         etr.commit();
 
     }
 
-    public static String getPassword(String email){
+    public String getPassword(String email){
         try {
             Query query = em.createQuery("SELECT password from Student WHERE email = :email")
                     .setParameter("email", email);
@@ -199,7 +200,7 @@ public class Queries {
      * @param: email: String
      * @return: 0< int or -1 on NoResultException
      */
-    public static int getID(String email){
+    public int getID(String email){
         try {
             Query query = em.createQuery("SELECT id from Student WHERE email = :email")
                     .setParameter("email", email);
@@ -211,7 +212,7 @@ public class Queries {
         return -1;
     }
 
-    public static void deleteStudent(String email){
+    public void deleteStudent(String email){
         try {
 
             etr.begin();
@@ -224,7 +225,7 @@ public class Queries {
         }
     }
 
-    public static Student getStudent(String email){
+    public Student getStudent(String email){
 
         Query query = em.createQuery("select id from Student where email = :email")
                                     .setParameter("email", email);
@@ -239,7 +240,7 @@ public class Queries {
      * Set the persistence-unit name for hibernate manually
      * @param dbName: String
      */
-    public static void setEnv(String dbName){
+    public void setEnv(String dbName){
         emf = Persistence.createEntityManagerFactory(dbName);
         em = emf.createEntityManager();
         etr = em.getTransaction();
