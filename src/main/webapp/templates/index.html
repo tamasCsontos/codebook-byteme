@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to CodeBook</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -16,16 +13,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
-            integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
-            crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
-<body>
+<body class="index_body">
 
     <div class="body_head">
         <h1>CodeBook</h1>
@@ -41,11 +31,11 @@
     </div>
     <div  class="body_buttons">
         <div th:if="${user == null}">
-            <a href="/login" class="login_btn">Login</a><br>
-            <a href="/registration" class="register_btn">Register Here</a><br>
+            <a href="/login" class="btn btn-success login_btn">Login</a><br>
+            <a href="/registration" class="btn btn-warning register_btn">Register Here</a><br>
         </div>
         <div th:if="${user != null}">
-            <a href="/logout" class="logout_btn">Logout</a>
+            <a href="/logout" class="btn btn-danger logout_btn">Logout</a>
         </div>
     </div>
 
@@ -58,12 +48,12 @@
             <h3>Students:</h3>
             <div th:each="student : ${students}">
                 <div th:switch="${user}">
-                    <div th:case="null">
+                    <div th:case="null" class="students">
                         <a th:href="@{'/student/?id=' + ${student.Id}}" class="btn btn-primary" th:text="${#strings.capitalize(student.name)}"></a>
                         <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success" >Message</a>
                     </div>
-                    <div th:case="*" th:if="${user.getName() != student.name}">
-                        <a th:href="@{'/student/?id=' + ${student.Id}}" class="btn btn-primary" th:text="${#strings.capitalize(student.name)}"></a>
+                    <div th:case="*" th:if="${user.getName() != student.name}" class="students">
+                        <a th:href="@{'/student/?id=' + ${student.Id}}" class="btn btn-primary" th:text="${#strings.capitalize(student.name)}" width></a>
                         <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success">Message</a>
                     </div>
                 </div>

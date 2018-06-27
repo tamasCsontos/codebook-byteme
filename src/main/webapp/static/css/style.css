@@ -1,0 +1,15 @@
+.index_body{
+    margin: 0 auto;
+    width:50%;
+    align-content: center;
+}
+
+.students{
+    border: solid black 1px;
+    width: 280px;
+    padding: 5px 5px 5px 5px;
+}
+
+.btn{
+    width: 125px;
+}
