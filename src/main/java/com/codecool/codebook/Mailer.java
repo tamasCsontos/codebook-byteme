@@ -4,6 +4,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 
@@ -43,7 +44,7 @@ public class Mailer {
             MimeMessage message = new MimeMessage(session);
 
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(from, "CodeBook Team"));
 
             // Set To: header field of the header.
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
@@ -52,13 +53,24 @@ public class Mailer {
             message.setSubject("Thank you for using CodeBook!");
 
             // Now set the actual message
-            message.setText("Dear " + req.getParameter("name") + "," + "\n \nThank you for joining our site.\n \nWe hope you will enjoy our service. Have a nice day!\nBest Regards,\n");
+            message.setText("Dear " + req.getParameter("name") + "," + "\n" +
+                    " \nThank you for joining our site.\n " +
+                    "\nWe hope you will enjoy our service. Have a nice day!" +
+                    "\nBest Regards,\n"+
+                    "\nThe CodeBook Team:"+
+                    "\nBalogh Dávid"+
+                    "\nCsontos Tamás"+
+                    "\nOláh Tamás"+
+                    "\nVártok Soma"+
+                    "\nZibár András");
 
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }
