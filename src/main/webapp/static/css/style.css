@@ -60,7 +60,7 @@ Registration
 /*********
 Index
  *******/
-.student_list{
+.student_list, .student_info, .workplace, .class{
     width: 370px;
     padding: 20px;
     margin: 0 auto;
