@@ -42,5 +42,13 @@
         <a class="btn btn-danger job-btn" th:text="${job.name}"></a>
     </div>
 
+    <h2>Feedbacks:</h2>
+    <div th:each="student : ${students}">
+        <div th:if="${student.workplaceFeedback != null}">
+            <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name} + ': '"></a>
+            <p th:text="${student.workplaceFeedback}"></p>
+        </div>
+    </div>
+
     <div th:replace="footer.html :: copy"></div>
 </body>
