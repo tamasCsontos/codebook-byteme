@@ -52,6 +52,10 @@ Registration
     margin-left: 35%;
 }
 
+#wrong_email, #wrong_password{
+    margin-left: 25%;
+}
+
 
 /*********
 Index
@@ -72,5 +76,44 @@ Index
 }
 
 .students{
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid azure;
 }
+
+
+/********
+Message
+ *******/
+.msg-field{
+    margin: 5px 0 10px 0;
+}
+.messages{
+    width: 270px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: azure;
+}
+
+.user-btn{
+    margin: 15px 0 10px 0;
+    width: 270px;
+    text-align: center;
+}
+
+/*******************
+Workplace/Workplaces
+ ******************/
+
+.job-btn{
+    width: 175px;
+}
+
+.workplaces{
+    width: 170px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+

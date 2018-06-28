@@ -29,8 +29,9 @@
 </head>
 <body class="index_body">
     <h1>Student Informations</h1>
-    <div th:text="${student.name}"></div>
+    <div th:text="${#strings.capitalize(student.name)}"></div>
     <div th:text="${student.email}"></div>
+    <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success">Message</a>
 
 <h2>Workplace:</h2>
 <div th:switch="${workplace}">

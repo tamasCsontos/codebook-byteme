@@ -13,25 +13,25 @@
 </head>
 <body class="index_body">
     <header>
-        <h3 th:text="${#strings.capitalize(student2.name)}"></h3>
+        <a  th:href="@{'/student/?id=' + ${student2.Id}}" class="btn btn-default user-btn" th:text="${#strings.capitalize(student2.name)}"></a>
     </header>
-    <div class="static_header" th:replace="header.html :: copy">
-    </div>
-    <div>
-        <form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
-            <label>Message:</label>
-            <input type="text" id="message" name="message"/>
-            <button id="submit" type="submit" value="send">Send</button>
-        </form>
-    </div>
-    <div th:each="message : ${messages}">
-        <div th:switch="${message.receiverStudent}">
-            <div th:case="${student2}">
-                <p th:text="${#strings.capitalize(student1.name)} + ': ' + ${message.textmessage} "></p>
+
+    <div class="messages">
+        <div th:each="message : ${messages}">
+            <div th:switch="${message.receiverStudent}">
+                <div th:case="${student2}" class="sender-student">
+                    <p th:text="${#strings.capitalize(student1.name)} + ': ' + ${message.textmessage} "></p><br/>
+                </div>
+                <div th:case="${student1}" class="receiver-student">
+                    <p th:text="${#strings.capitalize(student2.name)} + ': ' + ${message.textmessage} "></p><br/>
+                </div>
             </div>
-            <div th:case="${student1}">
-                <p th:text="${#strings.capitalize(student2.name)} + ': ' + ${message.textmessage} "></p>
-            </div>
+        </div>
+        <div class="msg-field">
+            <form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
+                <input type="text" id="message" name="message"/>
+                <button id="submit" type="submit" value="send">Send</button>
+            </form>
         </div>
     </div>
 

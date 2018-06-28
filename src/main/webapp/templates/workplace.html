@@ -34,12 +34,12 @@
     </div>
     <h2>Students working here:</h2>
     <div th:each="student : ${students}">
-        <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
+        <a class="btn btn-primary student-btn" th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
     </div>
 
     <h2>Actual Jobs:</h2>
     <div th:each="job : ${jobs}">
-        <a th:text="${job.name}"></a>
+        <a class="btn btn-danger job-btn" th:text="${job.name}"></a>
     </div>
 
     <div th:replace="footer.html :: copy"></div>

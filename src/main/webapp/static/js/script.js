@@ -9,12 +9,12 @@ function checkPassword() {
     if (password != confirm_password){
 
         message.innerText = "Passwords are not matching!";
-        message.setAttribute("style", "color: red; font-size: 1.5em");
+        message.setAttribute("style", "color: red; font-size: 1.25em");
         submit.setAttribute("disabled", "disabled");
         submit.setAttribute("style", "mouse: no-drop");
     } else {
         message.innerText = "Matching passwords!";
-        message.setAttribute("style", "color: green; font-size: 1.5em");
+        message.setAttribute("style", "color: green; font-size: 1.25em");
         if (isEmailRegistered === false) {
             submit.removeAttribute("disabled");
         }
@@ -41,11 +41,11 @@ function checkEmail(){
             debugger;
             if (response === "true"){
                 message.innerText = "This email is already registered!";
-                message.setAttribute("style", "color: red; font-size: 1.5em");
+                message.setAttribute("style", "color: red; font-size: 1.25em");
                 isEmailRegistered = true;
             } else {
                 message.innerText = "This email is not registered yet!";
-                message.setAttribute("style", "color: green; font-size: 1.5em");
+                message.setAttribute("style", "color: green; font-size: 1.25em");
                 submit.removeAttribute("disabled");
                 isEmailRegistered = false;
             }
