@@ -33,6 +33,7 @@ public class MessageController extends HttpServlet {
             context.setVariable("student1", senderStudent);
             context.setVariable("student2", recieverStudent);
             context.setVariable("messages", queries.getAllMessageBetweenUsers(senderId, receiverId));
+            context.setVariable("queries", queries);
             engine.process("message.html", context, resp.getWriter());
         } else {
             engine.process("messageerror.html", context, resp.getWriter());

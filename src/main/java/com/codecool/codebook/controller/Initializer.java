@@ -21,6 +21,7 @@ public class Initializer implements ServletContextListener {
     private WorkplaceController workplaceController;
     private QueryController queryController;
     private Queries queries;
+    private MessageUpdateController messageUpdateController;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -37,9 +38,8 @@ public class Initializer implements ServletContextListener {
         context.addServlet("specificWorkplaceController", specificWorkplaceController).addMapping("/workplace/*");
         context.addServlet("studentController", studentController).addMapping("/student/*");
         context.addServlet("workplaceController", workplaceController).addMapping("/workplaces");
+        context.addServlet("messageUpdateController", messageUpdateController).addMapping("/messageupdate/*");
         context.addServlet("queryController", queryController).addMapping("/check");
-
-
     }
 
     @Override
@@ -55,6 +55,7 @@ public class Initializer implements ServletContextListener {
         specificWorkplaceController = new SpecificWorkplaceController(queries);
         studentController = new StudentController(queries);
         workplaceController = new WorkplaceController(queries);
+        messageUpdateController = new MessageUpdateController(queries);
         queryController = new QueryController(queries);
     }
 
