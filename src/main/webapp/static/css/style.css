@@ -3,15 +3,9 @@
 Whole site
  ************/
 .index_body{
-    margin: 0 auto;
     width:50%;
+    margin: 0 auto;
     background-color: lightgray;
-}
-
-.students{
-    border: solid black 1px;
-    width: 267px;
-    padding: 5px 5px 5px 5px;
 }
 
 .btn{
@@ -37,4 +31,46 @@ Footer
 
 .footer_btn{
     margin-top: 15px;
+}
+
+/*********
+Registration
+ *********/
+.registration, .login{
+    width: 440px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 10px;
+
+}
+.registration input, .login input {
+    float: right;
+}
+
+.register{
+    margin-left: 35%;
+}
+
+
+/*********
+Index
+ *******/
+.student_list{
+    width: 370px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.msg {
+    float: right;
+}
+
+.student-btn, .msg{
+    margin-top: 10px;
+}
+
+.students{
+    border-bottom: 2px solid black;
 }

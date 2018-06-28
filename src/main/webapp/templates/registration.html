@@ -32,30 +32,31 @@
     <h2>Registration</h2>
         <div class="registration">
             <form action="/registration" method="post">
-                <div id="wrong_email">&#160</div>
-                <div>
-                    <label  class="input_label">E-mail:</label>
-                    <input id="email" name="email" type="email" onchange="checkEmail()" required/>
+                <div id="wrong_email">
                 </div>
-                <div id="name">
+                <h4 id="email-field">
+                    <label  for="email-field" class="input_label">E-mail:</label>
+                    <input id="email" name="email" type="email" onchange="checkEmail()" required/>
+                </h4>
+                <h4 id="name">
                     <label for="name">Name:</label>
                     <input type="text" name="name" minlength="2" required/>
-                </div>
-                <div id="phonenumber">
-                    <label  class="input_label">Phone No.:</label>
+                </h4>
+                <h4 id="phonenumber">
+                    <label for="phonenumber" class="input_label">Phone No.:</label>
                     <input  name="phonenumber"/>
-                </div>
-                <div id="wrong_password">&#160</div>
-                <div>
-                    <label class="input_label">Password:</label>
-                    <input id="password" type="password" name="password" required />
-                </div>
-                <div>
-                    <label  class="input_label">Confirm Password:</label>
+                </h4>
+                <div id="wrong_password"></div>
+                <h4 id="password-field">
+                    <label for="password-field" class="input_label">Password:</label>
+                    <input id="password" type="password" name="password" minlength="8" required />
+                </h4>
+                <h4 id="confirm_password-field">
+                    <label for="confirm_password-field" class="input_label">Confirm Password:</label>
                     <input id="confirm_password" type="password" name="confirm_password" onkeyup="checkPassword()" required />
-                </div>
+                </h4>
 
-                <button id="submit" type="submit" value="registration" class="btn btn-success" disabled >Register</button>
+                <button id="submit" type="submit" value="registration" class="btn btn-success register" disabled >Register</button>
             </form>
         </div>
 
