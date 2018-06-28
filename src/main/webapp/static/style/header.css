@@ -26,3 +26,29 @@ header > * {
 
     margin: 15px;
 }
+
+.header-content {
+    float: left;
+    position: relative;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 60px;
+
+    margin: 0;
+    padding: 0 16px;
+
+    text-shadow: 0 0 4px rgba(255, 255, 255, .3), 0 0 6px rgba(255, 255, 255, .2);
+
+}
+
+.button {
+    color: white;
+}
+
+.button:visited {
+    color: white;
+}
+
+.button:hover {
+    text-decoration-line: none;
+}
