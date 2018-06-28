@@ -1,9 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <h1 th:text="@{'message between ' + ${student1.name} + ' and ' + ${student2.name}}"></h1>
+    <script defer src="/static/js/message.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 </head>
 <body>
+<h1 th:text="@{'message between ' + ${student1.name} + ' and ' + ${student2.name}}"></h1>
 <form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
     <label>
         Message:
@@ -17,15 +22,9 @@
 <br>
 
 
-<div th:each="message : ${messages}">
-<div th:switch="${message.receiverStudent}">
-    <div th:case="${student2}">
-        <p th:text="${student1.name} + ': ' + ${message.textmessage} "></p>
-    </div>
-    <div th:case="${student1}">
-        <p th:text="${student2.name} + ': ' + ${message.textmessage} "></p>
-    </div>
-</div>
+
+<div id="message-container">
+
 </div>
 
 
