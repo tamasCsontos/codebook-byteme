@@ -1,15 +1,40 @@
+
+/*************
+Whole site
+ ************/
 .index_body{
     margin: 0 auto;
     width:50%;
-    align-content: center;
+    background-color: lightgray;
 }
 
 .students{
     border: solid black 1px;
-    width: 280px;
+    width: 267px;
     padding: 5px 5px 5px 5px;
 }
 
 .btn{
     width: 125px;
+
+}
+
+/********
+Header
+ *******/
+.login_btn, .logout_btn, .register_btn, .workplace_btn{
+    margin: 5px 0 5px 0;
+}
+.login_btn, .register_btn{
+    display: inline-block;
+}
+
+
+
+/******
+Footer
+ *****/
+
+.footer_btn{
+    margin-top: 15px;
 }

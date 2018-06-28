@@ -1,8 +1,10 @@
+var isEmailRegistered;
+var submit = document.getElementById("submit");
+
 function checkPassword() {
     var password = document.getElementById("password").value;
     var confirm_password = document.getElementById("confirm_password").value;
     var message = document.getElementById("wrong_password");
-    var submit = document.getElementById("submit");
 
     if (password != confirm_password){
 
@@ -13,7 +15,9 @@ function checkPassword() {
     } else {
         message.innerText = "Matching passwords!";
         message.setAttribute("style", "color: green; font-size: 1.5em");
-        submit.removeAttribute("disabled");
+        if (isEmailRegistered === false) {
+            submit.removeAttribute("disabled");
+        }
         submit.removeAttribute("style");
 
     }
@@ -37,10 +41,13 @@ function checkEmail(){
             debugger;
             if (response === "true"){
                 message.innerText = "This email is already registered!";
-                message.setAttribute("style", "color: red; font-size: 1.5em")
+                message.setAttribute("style", "color: red; font-size: 1.5em");
+                isEmailRegistered = true;
             } else {
                 message.innerText = "This email is not registered yet!";
-                message.setAttribute("style", "color: green; font-size: 1.5em")
+                message.setAttribute("style", "color: green; font-size: 1.5em");
+                submit.removeAttribute("disabled");
+                isEmailRegistered = false;
             }
         })
     })

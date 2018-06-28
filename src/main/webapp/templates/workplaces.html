@@ -23,21 +23,22 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
-<body>
-    <h1>Workplaces</h1>
-<div th:if="${userName == null}">
+<body class="index_body">
+        <h1>Workplaces</h1>
+    <div th:if="${userName == null}">
 
-</div>
-<div th:if="${userName != null}">
-    <a href="/logout">Logout</a>
-</div>
+    </div>
+    <div th:if="${userName != null}">
+        <a href="/logout">Logout</a>
+    </div>
 
-    <a href="/">Students</a>
-<div th:each="workplace : ${workplaces}">
-    <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
-</div>
+        <a href="/">Students</a>
+    <div th:each="workplace : ${workplaces}">
+        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+    </div>
     <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

@@ -17,30 +17,11 @@
 </head>
 <body class="index_body">
 
-    <div class="body_head">
-        <h1>CodeBook</h1>
-    </div>
-
-    <div th:switch="${user}">
-        <div th:case="null" class="name_switch">
-            <h2 >No User logged in!</h2>
-        </div>
-        <div th:case="*" class="name_switch">
-            <h2>Welcome <a th:href="@{'/student/?id=' + ${user.getId()}}" th:text="${#strings.capitalize(user.getName())}"></a>! </h2>
-        </div>
-    </div>
-    <div  class="body_buttons">
-        <div th:if="${user == null}">
-            <a href="/login" class="btn btn-success login_btn">Login</a><br>
-            <a href="/registration" class="btn btn-warning register_btn">Register Here</a><br>
-        </div>
-        <div th:if="${user != null}">
-            <a href="/logout" class="btn btn-danger logout_btn">Logout</a>
-        </div>
+    <div class="static_header" th:replace="header.html :: copy">
     </div>
 
     <div>
-        <a href="/workplaces">Workplaces</a><br>
+        <a href="/workplaces" class="btn btn-info workplace_btn">Workplaces</a><br>
     </div>
 
     <div class="student_list">
