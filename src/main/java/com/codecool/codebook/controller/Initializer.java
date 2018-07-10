@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    private IndexController indexController;
+    private StudentController indexController;
     private LoginController loginController;
     private LogoutController logoutController;
     private MessageController messageController;
@@ -36,7 +36,6 @@ public class Initializer implements ServletContextListener {
         context.addServlet("messageController", messageController).addMapping("/message/*");
         context.addServlet("registrationController", registrationController).addMapping("/registration");
         context.addServlet("specificWorkplaceController", specificWorkplaceController).addMapping("/workplace/*");
-        context.addServlet("studentController", studentController).addMapping("/student/*");
         context.addServlet("workplaceController", workplaceController).addMapping("/workplaces");
         context.addServlet("messageUpdateController", messageUpdateController).addMapping("/messageupdate/*");
         context.addServlet("queryController", queryController).addMapping("/check");
@@ -47,7 +46,7 @@ public class Initializer implements ServletContextListener {
     }
 
     private void instantiateControllers(){
-        indexController = new IndexController(queries);
+        indexController = new StudentController(queries);
         loginController = new LoginController(queries);
         logoutController = new LogoutController();
         messageController = new MessageController(queries);

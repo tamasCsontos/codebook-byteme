@@ -1,43 +1,31 @@
 package com.codecool.codebook.controller;
 
-import com.codecool.codebook.config.TemplateEngineUtil;
 import com.codecool.codebook.model.Student;
-import com.codecool.codebook.sql.Queries;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import com.codecool.codebook.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+@Controller
+public class StudentController {
 
+    @Autowired
+    StudentRepository studentRepository;
 
-public class StudentController extends HttpServlet {
-    Queries queries;
-
-    public StudentController(Queries queries) {
-        this.queries = queries;
+    @GetMapping("/")
+    public String listStudents(Model model) {
+        List<Student> students = studentRepository.findAll();
+        model.addAttribute("students", students);
+        return "index";
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        Long pathParameter = Long.valueOf(req.getParameter("id"));
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        Student student = queries.getStudent(pathParameter);
-        context.setVariable("student", queries.getStudent(pathParameter));
-        if (student.getWorkplace() != null){
-            context.setVariable("workplace", queries.getStudentWorkplace(pathParameter));
-        } else {
-            context.setVariable("workplace", "No Workplace");
-        }
-        if (student.getKlass() != null){
-            context.setVariable("klass", queries.getStudentKlass(pathParameter));
-        } else {
-            context.setVariable("klass", "No Klass");
-        }
-        engine.process("student.html", context, resp.getWriter());
+    @GetMapping("/student/{id}")
+    public String showStudent(Model model, @RequestParam("id")String id){
+        Student student = studentRepository.getOne(Long.valueOf(id));
+        model.addAttribute("student", student);
+        return "student";
     }
+
 }

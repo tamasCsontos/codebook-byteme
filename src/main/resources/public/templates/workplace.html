@@ -33,19 +33,19 @@
     <div th:text="${workplace.description}">
     </div>
     <h2>Students working here:</h2>
-    <div th:each="student : ${students}">
-        <a class="btn btn-primary student-btn" th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name}"></a>
+    <div th:each="student : ${workplace.getStudents()}">
+        <a class="btn btn-primary student-btn" th:href="@{'/student/' + '?id=' + ${student.id}}" th:text="${student.name}"></a>
     </div>
 
     <h2>Actual Jobs:</h2>
-    <div th:each="job : ${jobs}">
+    <div th:each="job : ${workplace.getJobs()}">
         <a class="btn btn-danger job-btn" th:text="${job.name}"></a>
     </div>
 
     <h2>Feedbacks:</h2>
-    <div th:each="student : ${students}">
+    <div th:each="student : ${workplace.getStudents()}">
         <div th:if="${student.workplaceFeedback != null}">
-            <a th:href="@{'/student/' + '?id=' + ${student.Id}}" th:text="${student.name} + ': '"></a>
+            <a th:href="@{'/student/' + '?id=' + ${student.id}}" th:text="${student.name} + ': '"></a>
             <p th:text="${student.workplaceFeedback}"></p>
         </div>
     </div>

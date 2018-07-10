@@ -12,6 +12,6 @@ public class InitializerBean {
                            SchoolRepository schoolRepository,
                            StudentRepository studentRepository,
                            WorkplaceRepository workplaceRepository) {
-        
+
     }
 }
