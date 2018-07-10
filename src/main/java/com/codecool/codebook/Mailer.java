@@ -67,10 +67,8 @@ public class Mailer {
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
+        } catch (MessagingException | UnsupportedEncodingException mex) {
             mex.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
     }
 }

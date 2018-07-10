@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
 
                 response.sendRedirect("/");
             }
-        }catch (IllegalArgumentException e){
+        }catch (IllegalArgumentException e){ // too broad
             System.err.println("Error caught: " + e.toString());
 
             context.setVariable("onError", "Wrong email or password");
