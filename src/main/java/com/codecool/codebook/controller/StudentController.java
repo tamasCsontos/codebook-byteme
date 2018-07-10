@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 public class StudentController {
 
@@ -22,7 +24,7 @@ public class StudentController {
     }
 
     @GetMapping("/student/{id}")
-    public String showStudent(Model model, @RequestParam("id")String id){
+    public String showStudent(Model model, @PathVariable("id") String id){
         Student student = studentRepository.getOne(Long.valueOf(id));
         model.addAttribute("student", student);
         return "student";

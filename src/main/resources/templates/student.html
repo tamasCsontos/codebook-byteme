@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error | CodeBook</title>
+    <title th:text="${student.getName()} + ' | CodeBook'"> </title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -24,13 +25,32 @@
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
+
+
 </head>
 <body class="index_body">
-    <div class="static_header" th:replace="header.html :: copy">
+    <h1>Student Informations</h1>
+    <div class="student_info" th:text="${#strings.capitalize(student.getName())}"></div>
+    <div class="student_info" th:text="${student.getEmail()}"></div>
+
+<h2>Workplace:</h2>
+<div class="workplace" th:switch="${student.getWorkplace()}">
+    <p th:case="'No Workplace'">No Workplace for this User</p>
+    <div th:case="*">
+        <a th:href="@{'/workplace/' + ${student.getWorkplace().getId()}}" th:text="${student.getWorkplace().getName()}"></a>
     </div>
-    <h1>Something went wrong</h1>
-    <div th:replace="footer.html :: copy">
+</div>
+
+
+<h2>Class:</h2>
+<div class="class" th:switch="${student.getKlass()}">
+    <p th:case="'No Klass'">No Class for this User</p>
+    <div th:case="*">
+        <p th:text="${student.getKlass().getName()}"></p>
     </div>
+</div>
+    <a th:href="@{'/message/' + ${student.getId()}}" class="btn btn-success">Message</a>
+    <div th:replace="footer.html :: copy"></div>
+
 </body>
 </html>

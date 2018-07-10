@@ -1,3 +1,4 @@
+/*
 package com.codecool.codebook.controller;
 
 import com.codecool.codebook.Mailer;
@@ -48,3 +49,4 @@ public class RegistrationController extends HttpServlet {
         response.sendRedirect("/");
     }
 }
+*/

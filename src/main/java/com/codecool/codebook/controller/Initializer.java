@@ -1,3 +1,4 @@
+/*
 package com.codecool.codebook.controller;
 
 import com.codecool.codebook.sql.Queries;
@@ -62,3 +63,4 @@ public class Initializer implements ServletContextListener {
         queries = new Queries(Persistence.createEntityManagerFactory("codebookPU"));
     }
 }
+*/

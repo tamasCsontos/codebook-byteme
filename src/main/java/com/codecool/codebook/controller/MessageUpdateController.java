@@ -1,3 +1,4 @@
+/*
 package com.codecool.codebook.controller;
 
 import com.codecool.codebook.model.Message;
@@ -52,3 +53,4 @@ public class MessageUpdateController extends HttpServlet {
 
     }
 }
+*/
