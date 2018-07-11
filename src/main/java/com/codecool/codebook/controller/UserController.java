@@ -4,18 +4,16 @@ import com.codecool.codebook.Password;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@EnableWebSecurity
+import javax.servlet.http.HttpSession;
+
+
 @Controller
-public class UserController extends WebSecurityConfigurerAdapter {
+public class UserController{
 
     @Autowired
     StudentRepository studentRepository;
@@ -29,12 +27,14 @@ public class UserController extends WebSecurityConfigurerAdapter {
     }
 
     @PostMapping("/login")
-    public String doLogin(@RequestParam("email") String email, @RequestParam("password") String password, AuthenticationManagerBuilder auth) throws Exception {
+    public String doLogin(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password){
         String hashedPassword = studentRepository.findByEmail(email).getPassword();
         if (bcrypt.checkPassword(password, hashedPassword)) {
-            auth.inMemoryAuthentication()
-                    .withUser(studentRepository.findByEmail(email).getName()).roles("USER");
+            session.setAttribute("userID", studentRepository.findByEmail(email).getId());
+            session.setAttribute("email", email);
+            System.out.println(session.getAttribute("email"));
             return "redirect:/";
+
         }
         return "login";
     }
@@ -53,25 +53,6 @@ public class UserController extends WebSecurityConfigurerAdapter {
         studentRepository.save(newStudent);
         return "redirect:/";
     }
-
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/login", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .successForwardUrl("/")
-                .and()
-                .logout().invalidateHttpSession(true).logoutSuccessUrl("/")
-                .and()
-                .csrf().disable();
-    }
-
-
 
 
 
