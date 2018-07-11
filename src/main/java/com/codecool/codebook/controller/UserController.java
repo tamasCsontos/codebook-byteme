@@ -21,6 +21,9 @@ public class UserController{
     @Autowired
     Password bcrypt;
 
+    @Autowired
+    HttpSession session;
+
     @GetMapping("/login")
     public String displayLogin() {
         return "login";
@@ -37,6 +40,15 @@ public class UserController{
 
         }
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        if (session.getAttribute("userID") != null){
+            session.invalidate();
+
+        }
+        return "redirect:/";
     }
 
 
