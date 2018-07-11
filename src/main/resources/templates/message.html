@@ -17,7 +17,7 @@
 </head>
 <body class="index_body">
 <header>
-    <a th:href="@{'/student/?id=' + ${student2.Id}}" class="btn btn-default user-btn"
+    <a th:href="@{'/student?id=' + ${student2.id}}" class="btn btn-default user-btn"
        th:text="${#strings.capitalize(student2.name)}"></a>
 </header>
 <div class="messages">
@@ -25,7 +25,7 @@
         <!--JavaScript Magic-->
     </div>
     <div class="msg-field">
-        <form th:action="@{'/message/' + '?id=' + ${student2.Id}}" method="post">
+        <form th:action="@{'/message' + '?id=' + ${student2.id}}" method="post">
             <input type="text" id="message" name="message"/>
             <button id="submit" type="submit" value="send">Send</button>
         </form>
