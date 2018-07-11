@@ -1,5 +1,6 @@
 package com.codecool.codebook.controller;
 
+import com.codecool.codebook.service.Mailer;
 import com.codecool.codebook.Password;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.repository.StudentRepository;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -21,6 +23,12 @@ public class UserController{
     @Autowired
     Password bcrypt;
 
+    @Autowired
+    Mailer mailer;
+
+    @Autowired
+    HttpServletRequest request;
+
     @GetMapping("/login")
     public String displayLogin() {
         return "login";
@@ -32,9 +40,7 @@ public class UserController{
         if (bcrypt.checkPassword(password, hashedPassword)) {
             session.setAttribute("userID", studentRepository.findByEmail(email).getId());
             session.setAttribute("email", email);
-            System.out.println(session.getAttribute("email"));
             return "redirect:/";
-
         }
         return "login";
     }
@@ -47,10 +53,11 @@ public class UserController{
 
     @PostMapping("/registration")
     public String doRegistration(@RequestParam("name") String name,@RequestParam("email") String email, @RequestParam("password") String password) {
-
-        String hashedPAssword = bcrypt.hashPassword(password);
-        Student newStudent = new Student(name, email, hashedPAssword);
+        String hashedPassword = bcrypt.hashPassword(password);
+        Student newStudent = new Student(name, email, hashedPassword);
         studentRepository.save(newStudent);
+        mailer = new Mailer();
+        mailer.sendWelcome(request);
         return "redirect:/";
     }
 
