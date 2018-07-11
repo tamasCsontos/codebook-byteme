@@ -1,38 +1,19 @@
-package com.codecool.codebook;
+package com.codecool.codebook.service;
 
+import com.codecool.codebook.model.Location;
 import com.codecool.codebook.model.*;
+import com.codecool.codebook.repository.*;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+@Component
+public class InitializerBean {
 
-public class CodeBook {
-    public static void populateDb(EntityManager em) {
-
-        Student student = new Student("Testname", "e@mail.hu", "examplepassword");
-        Workplace workPlace = new Workplace("Tname", "Tdesc");
-        School school = new School(Location.BUDAPEST);
-        Klass klass = new Klass("BPtest");
-        ActualJob actualJob = new ActualJob("Tjob", "Tjobdesc");
-        Message message = new Message("asd");
-
-        klass.addStudent(student);
-        workPlace.addStudent(student);
-        workPlace.addActualJob(actualJob);
-
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(school);
-        em.persist(klass);
-        em.persist(message);
-        em.persist(actualJob);
-        em.persist(student);
-        em.persist(workPlace);
-        transaction.commit();
-    }
-
-    public static void populateDbForDemo(EntityManager em) {
+    public InitializerBean(ActualJobRepository actualJobRepository,
+                           KlassRepository klassRepository,
+                           MessageRepository messageRepository,
+                           SchoolRepository schoolRepository,
+                           StudentRepository studentRepository,
+                           WorkplaceRepository workplaceRepository) {
         //Generate Students
         Student student1 = new Student("Gipsz Jakab", "jakab@mail.hu", "examplepassword");
         Student student2 = new Student("Cink Elek", "c.elek@gmail.com", "examplepassword");
@@ -82,42 +63,38 @@ public class CodeBook {
         workPlace1.addActualJob(actualJob1);
         workPlace2.addActualJob(actualJob2);
 
-        //Persist
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
+        student1.setWorkplaceFeedback("This is a cool place!");
+        student2.setWorkplaceFeedback("I like to work here!");
+        student4.setWorkplaceFeedback("This is a shitty place. I want to die!");
+        student6.setWorkplaceFeedback("It's okay");
 
-        em.persist(school1);
+        student1.setPhonenumber("06301234567");
+        student2.setPhonenumber("06307654321");
+        student3.setPhonenumber("06305555555");
+        student4.setPhonenumber("06304829495");
+        student5.setPhonenumber("06306295955");
+        student6.setPhonenumber("06301258458");
+        student7.setPhonenumber("06308755684");
+        student8.setPhonenumber("06308655669");
+        student9.setPhonenumber("06306668485");
 
-        em.persist(klass1);
-        em.persist(klass2);
-
-        em.persist(actualJob1);
-        em.persist(actualJob2);
-
-        em.persist(student1);
-        em.persist(student2);
-        em.persist(student3);
-        em.persist(student4);
-        em.persist(student5);
-        em.persist(student6);
-        em.persist(student7);
-        em.persist(student8);
-        em.persist(student9);
-
-        em.persist(workPlace1);
-        em.persist(workPlace2);
-        em.persist(workPlace3);
-
-        transaction.commit();
-    }
-
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebookPU");
-        EntityManager em = emf.createEntityManager();
-
-        populateDbForDemo(em);
-
-        em.close();
-        emf.close();
+        //Save information
+        workplaceRepository.save(workPlace1);
+        workplaceRepository.save(workPlace2);
+        workplaceRepository.save(workPlace3);
+        schoolRepository.save(school1);
+        klassRepository.save(klass1);
+        klassRepository.save(klass2);
+        actualJobRepository.save(actualJob1);
+        actualJobRepository.save(actualJob2);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
+        studentRepository.save(student3);
+        studentRepository.save(student4);
+        studentRepository.save(student5);
+        studentRepository.save(student6);
+        studentRepository.save(student7);
+        studentRepository.save(student8);
+        studentRepository.save(student9);
     }
 }

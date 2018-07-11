@@ -1,14 +1,16 @@
-package com.codecool.codebook;
+package com.codecool.codebook.service;
 
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Password {
 
-    private static int workload = 12;
+    private int workload = 12;
 
 
-    public static String hashPassword(String password_plaintext) {
+    public String hashPassword(String password_plaintext) {
         String salt = BCrypt.gensalt(workload);
         String hashed_password = BCrypt.hashpw(password_plaintext, salt);
 
@@ -16,7 +18,7 @@ public class Password {
     }
 
 
-    public static boolean checkPassword(String password_plaintext, String stored_hash) {
+    public boolean checkPassword(String password_plaintext, String stored_hash) {
         boolean password_verified = false;
 
         if (null == stored_hash || !stored_hash.startsWith("$2a$"))

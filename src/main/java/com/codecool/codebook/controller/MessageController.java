@@ -1,3 +1,4 @@
+/*
 package com.codecool.codebook.controller;
 
 import com.codecool.codebook.config.TemplateEngineUtil;
@@ -55,4 +56,4 @@ public class MessageController extends HttpServlet {
 
         response.sendRedirect("/message/?id=" + receiverId);
     }
-}
+}*/

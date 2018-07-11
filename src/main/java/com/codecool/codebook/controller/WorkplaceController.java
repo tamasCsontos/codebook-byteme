@@ -1,35 +1,42 @@
 package com.codecool.codebook.controller;
 
-import com.codecool.codebook.config.TemplateEngineUtil;
-import com.codecool.codebook.sql.Queries;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.codecool.codebook.model.Workplace;
+import com.codecool.codebook.repository.StudentRepository;
+import com.codecool.codebook.repository.WorkplaceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.util.List;
 
+@Controller
+public class WorkplaceController {
+    @Autowired
+    WorkplaceRepository workplaceRepository;
 
-public class WorkplaceController extends HttpServlet {
-    Queries queries;
+    @Autowired
+    StudentRepository studentRepository;
 
-    public WorkplaceController(Queries queries) {
-        this.queries = queries;
+    @Autowired
+    HttpSession session;
+
+    @GetMapping("/workplaces")
+    public String listWorkplaces(Model model){
+        List<Workplace> workplaces = workplaceRepository.findAll();
+        String email = (String) session.getAttribute("email");
+        model.addAttribute("user", studentRepository.findByEmail(email));
+        model.addAttribute("workplaces", workplaces);
+        return "workplaces";
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-
-        HttpSession session = req.getSession();
-        if (session.getAttribute("userID") != null) {
-            Long id = new Long((int) session.getAttribute("userID"));
-            context.setVariable("userName", queries.getStudent(id));
-        }
-
-        context.setVariable("workplaces", queries.getAllWorkplace());
-        engine.process("workplaces.html", context, resp.getWriter());
+    @GetMapping("/workplace")
+    public String showWorkplace(Model model, @RequestParam("id")String id){
+        Workplace workplace = workplaceRepository.getOne(Long.valueOf(id));
+        model.addAttribute(workplace);
+        return "workplace";
     }
 }

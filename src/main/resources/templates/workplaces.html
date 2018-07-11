@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login | CodeBook</title>
+    <title text="Workplaces | CodeBook"></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -23,26 +23,16 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
 <body class="index_body">
-    <h1>Login</h1>
-    <div class="login">
-        <div th:text="${onError}"></div>
-        <form action="/login" method="post">
-            <h4 id="email">
-                <label for="email">Email:</label>
-                <input name="email">
-            </h4>
-
-            <h4 id="password">
-                <label for="password">Password:</label>
-                <input type="password" name="password"/>
-            </h4>
-
-            <button id="submit" type="submit" value="registration">Login</button>
-        </form>
+    <div th:replace="header.html :: copy"></div>
+    <h1>Workplaces</h1>
+    <div class="workplaces">
+        <div  th:each="workplace : ${workplaces}">
+            <a class="btn btn-info workplace_btn" th:href="@{'/workplace?id=' + ${workplace.id}}" th:text="${workplace.name}"></a>
+        </div>
     </div>
     <div th:replace="footer.html :: copy"></div>
 </body>

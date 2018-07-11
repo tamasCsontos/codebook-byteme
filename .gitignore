@@ -111,3 +111,5 @@ buildNumber.properties
 # End of https://www.gitignore.io/api/java,maven,intellij
 
 src/main/resources/META-INF/
+
+src/main/resources/application\.properties

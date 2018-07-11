@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${student.name} + ' | CodeBook'"> </title>
+    <title th:text="${workplace.name} + ' | CodeBook'"></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -23,33 +23,32 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-
 </head>
 <body class="index_body">
-    <h1>Student Informations</h1>
-    <div class="student_info" th:text="${#strings.capitalize(student.name)}"></div>
-    <div class="student_info" th:text="${student.email}"></div>
-
-<h2>Workplace:</h2>
-<div class="workplace" th:switch="${workplace}">
-    <p th:case="'No Workplace'">No Workplace for this User</p>
-    <div th:case="*">
-        <a th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" th:text="${workplace.name}"></a>
+    <h1> Data</h1>
+    <div th:text="${workplace.name}">
     </div>
-</div>
-
-
-<h2>Class:</h2>
-<div class="class" th:switch="${klass}">
-    <p th:case="'No Klass'">No Class for this User</p>
-    <div th:case="*">
-        <p th:text="${klass.name}"></p>
+    <div th:text="${workplace.description}">
     </div>
-</div>
-    <a th:href="@{'/message/?id=' + ${student.Id}}" class="btn btn-success">Message</a>
+    <h2>Students working here:</h2>
+    <div th:each="student : ${workplace.getStudents()}">
+        <a class="btn btn-primary student-btn" th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name}"></a>
+    </div>
+
+    <h2>Actual Jobs:</h2>
+    <div th:each="job : ${workplace.getJobs()}">
+        <a class="btn btn-danger job-btn" th:text="${job.name}"></a>
+    </div>
+
+    <h2>Feedbacks:</h2>
+    <div th:each="student : ${workplace.getStudents()}">
+        <div th:if="${student.workplaceFeedback != null}">
+            <a th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name} + ': '"></a>
+            <p th:text="${student.workplaceFeedback}"></p>
+        </div>
+    </div>
+
     <div th:replace="footer.html :: copy"></div>
-
 </body>
-</html>

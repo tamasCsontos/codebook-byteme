@@ -2,41 +2,33 @@ package com.codecool.codebook.controller;
 
 
 import com.codecool.codebook.sql.Queries;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 
+@RestController
 public class QueryController extends HttpServlet {
+
+    @Autowired
     Queries queries;
 
-
-    public QueryController(Queries queries){
-        this.queries = queries;
+    @PostMapping(path = "/check")
+    public boolean checkEmailExistence(@RequestParam("email") String email){
+        if (queries.getStudent(email) != null) return true;
+        return false;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
-        String email = req.getParameter("email");
-        response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
-
-        if (queries.getStudent(email) != null){
-            out.print("true");
-
-        } else {
-            out.print("false");
-        }
-
-        out.flush();
-        out.close();
-    }
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping(path = "/check")
+    public void checkRedirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/");
     }
 
