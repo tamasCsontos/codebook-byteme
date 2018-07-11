@@ -1,7 +1,7 @@
 package com.codecool.codebook.controller;
 
 import com.codecool.codebook.service.Mailer;
-import com.codecool.codebook.Password;
+import com.codecool.codebook.service.Password;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

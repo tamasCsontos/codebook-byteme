@@ -1,6 +1,6 @@
 package com.codecool.codebook.service;
 
-import com.codecool.codebook.Location;
+import com.codecool.codebook.model.Location;
 import com.codecool.codebook.model.*;
 import com.codecool.codebook.repository.*;
 import org.springframework.stereotype.Component;
