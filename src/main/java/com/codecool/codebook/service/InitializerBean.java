@@ -24,6 +24,7 @@ public class InitializerBean {
         Student student7 = new Student("Ipsz Ilonka", "y@mail.hu", "examplepassword");
         Student student8 = new Student("Metall Ica", "icu@mail.hu", "examplepassword");
         Student student9 = new Student("Mesz Eli", "eli@mail.hu", "examplepassword");
+        Student student10 = new Student("Test User", "testuser", "$2a$12$dUNGULRkxdREqZ4Fb8npUey.sAjVm4qnIngMsvIWcr0mo9n.6wgQa");
 
         //Genarate Workplaces
         Workplace workPlace1 = new Workplace("Facebook", "Community site.");
@@ -51,6 +52,7 @@ public class InitializerBean {
         klass2.addStudent(student7);
         klass2.addStudent(student8);
         klass2.addStudent(student9);
+        klass1.addStudent(student10);
 
         workPlace1.addStudent(student1);
         workPlace1.addStudent(student2);
@@ -59,6 +61,7 @@ public class InitializerBean {
         workPlace2.addStudent(student5);
         workPlace3.addStudent(student6);
         workPlace3.addStudent(student7);
+        workPlace1.addStudent(student10);
 
         workPlace1.addActualJob(actualJob1);
         workPlace2.addActualJob(actualJob2);
@@ -67,6 +70,7 @@ public class InitializerBean {
         student2.setWorkplaceFeedback("I like to work here!");
         student4.setWorkplaceFeedback("This is a shitty place. I want to die!");
         student6.setWorkplaceFeedback("It's okay");
+        student10.setWorkplaceFeedback("I'm just a test user");
 
         student1.setPhonenumber("06301234567");
         student2.setPhonenumber("06307654321");
@@ -77,6 +81,7 @@ public class InitializerBean {
         student7.setPhonenumber("06308755684");
         student8.setPhonenumber("06308655669");
         student9.setPhonenumber("06306668485");
+        student10.setPhonenumber("06306666666");
 
         //Save information
         workplaceRepository.save(workPlace1);
@@ -96,5 +101,6 @@ public class InitializerBean {
         studentRepository.save(student7);
         studentRepository.save(student8);
         studentRepository.save(student9);
+        studentRepository.save(student10);
     }
 }
