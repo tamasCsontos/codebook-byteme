@@ -18,8 +18,11 @@ public class StudentController {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    HttpSession session;
+
     @GetMapping("/")
-    public String listStudents(Model model, HttpSession session) {
+    public String listStudents(Model model) {
         List<Student> students = studentRepository.findAll();
 
         model.addAttribute("students", students);

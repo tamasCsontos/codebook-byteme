@@ -1,8 +1,6 @@
 package com.codecool.codebook.model;
 
 
-import com.codecool.codebook.Location;
-
 import javax.persistence.*;
 
 @Entity

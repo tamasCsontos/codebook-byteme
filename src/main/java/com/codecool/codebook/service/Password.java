@@ -1,4 +1,4 @@
-package com.codecool.codebook;
+package com.codecool.codebook.service;
 
 
 import org.mindrot.jbcrypt.BCrypt;

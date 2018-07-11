@@ -21,14 +21,12 @@ public class WorkplaceController {
     @Autowired
     StudentRepository studentRepository;
 
-
-
     @Autowired
     HttpSession session;
 
     @GetMapping("/workplaces")
     public String listWorkplaces(Model model){
-        List<Workplace> workplaces =workplaceRepository.findAll();
+        List<Workplace> workplaces = workplaceRepository.findAll();
         String email = (String) session.getAttribute("email");
         model.addAttribute("user", studentRepository.findByEmail(email));
         model.addAttribute("workplaces", workplaces);
