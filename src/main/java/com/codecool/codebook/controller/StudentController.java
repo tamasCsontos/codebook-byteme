@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,8 +28,8 @@ public class StudentController {
         return "index";
     }
 
-    @GetMapping("/student/{id}")
-    public String showStudent(Model model, @PathVariable("id") String id){
+    @GetMapping("/student")
+    public String showStudent(Model model, @RequestParam("id") String id){
         Student student = studentRepository.getOne(Long.valueOf(id));
         model.addAttribute("student", student);
         return "student";

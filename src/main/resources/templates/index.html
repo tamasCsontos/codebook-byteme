@@ -29,12 +29,12 @@
             <div th:each="student : ${students}">
                 <div th:switch="${user}">
                     <div th:case="null" class="students">
-                        <a th:href="@{'/student/' + ${student.id}}" class="btn btn-primary student-btn" th:text="${#strings.capitalize(student.name)}"></a>
-                        <a th:href="@{'/message/' + ${student.id}}" class="btn btn-success msg" >Message</a>
+                        <a th:href="@{'/student?id=' + ${student.id}}" class="btn btn-primary student-btn" th:text="${#strings.capitalize(student.name)}"></a>
+                        <a th:href="@{'/message?id=' + ${student.id}}" class="btn btn-success msg" >Message</a>
                     </div>
                     <div th:case="*" th:if="${user.getName() != student.name}" class="students">
-                        <a th:href="@{'/student/' + ${student.id}}" class="btn btn-primary student-btn" th:text="${#strings.capitalize(student.name)}" width></a>
-                        <a th:href="@{'/message/' + ${student.id}}" class="btn btn-success msg">Message</a>
+                        <a th:href="@{'/student?id=' + ${student.id}}" class="btn btn-primary student-btn" th:text="${#strings.capitalize(student.name)}" width></a>
+                        <a th:href="@{'/message?id=' + ${student.id}}" class="btn btn-success msg">Message</a>
                     </div>
                 </div>
             </div>

@@ -31,7 +31,7 @@
     <h1>Workplaces</h1>
     <div class="workplaces">
         <div  th:each="workplace : ${workplaces}">
-            <a class="btn btn-info workplace_btn" th:href="@{'/workplace/' + ${workplace.id}}" th:text="${workplace.name}"></a>
+            <a class="btn btn-info workplace_btn" th:href="@{'/workplace?id=' + ${workplace.id}}" th:text="${workplace.name}"></a>
         </div>
     </div>
     <div th:replace="footer.html :: copy"></div>

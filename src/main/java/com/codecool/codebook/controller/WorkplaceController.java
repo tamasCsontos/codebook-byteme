@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -34,8 +35,8 @@ public class WorkplaceController {
         return "workplaces";
     }
 
-    @GetMapping("/workplace/{id}")
-    public String showWorkplace(Model model, @PathVariable("id")String id){
+    @GetMapping("/workplace")
+    public String showWorkplace(Model model, @RequestParam("id")String id){
         Workplace workplace = workplaceRepository.getOne(Long.valueOf(id));
         model.addAttribute(workplace);
         return "workplace";
