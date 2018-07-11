@@ -8,11 +8,13 @@ import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Message;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.model.Workplace;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class Queries {
     private EntityManagerFactory emf;
     private EntityManager em;
