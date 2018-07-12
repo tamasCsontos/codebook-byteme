@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/card.ss">
+    <link rel="stylesheet" href="css/card.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="css/detailedView.css">
@@ -58,22 +58,23 @@
                 </span>
         <a class="header-content title button" href="/workplaces">Workplaces</a>
         <div id="header-auth">
-            <div th:if="${userName == null}">
+            <div th:switch="${user}">
+                <div th:case="null">
+                    <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
 
-                <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
-
-                <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
-            </div>
-            <div th:if="${userName != null}">
-                <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+                    <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
+                </div>
+                <div th:case="*">
+                    <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+                </div>
             </div>
         </div>
     </header>
     <section>
-        <div class="title text-center" th:switch="${userName}">
+        <div class="title text-center" th:switch="${user}">
             <h2 th:case="null">Welcome to CodeBook</h2>
             <div th:case="*">
-                <h2 th:text="'Welcome back ' + ${userName.getName()} + '!'"></h2>
+                <h2 th:text="'Welcome back ' + ${user.name} + '!'"></h2>
             </div>
         </div>
 
@@ -92,10 +93,10 @@
             <tbody>
                 <div th:each="student : ${students}">
                     <tr>
-                        <td><a th:href="@{'/student/' + '?id=' + ${student.Id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
-                        <td><p class="text text-center" th:text="${student.getKlass().name}"></p></td>
-                        <td><a th:href="@{'/workplace/' + '?id=' + ${student.getWorkplace().getId()}}"><p class="text text-center" th:text="${student.getWorkplace().name}"></p></a></td>
-                        <td><a th:href="@{'/message/' + '?id=' + ${student.Id}}"><p class="text text-center">Message</p></a></td>
+                        <td><a th:href="@{'/student' + '?id=' + ${student.id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
+                        <td><p th:if="${student.klass}" class="text text-center" th:text="${student.klass.name}"></p></td>
+                        <td><a th:if="${student.workplace}" th:href="@{'/workplace' + '?id=' + ${student.getWorkplace().getId()}}"><p th:if="${student.workplace}" class="text text-center" th:text="${student.getWorkplace().getName()}"></p></a></td>
+                        <td><a th:href="@{'/message' + '?id=' + ${student.id}}"><p class="text text-center">Message</p></a></td>
                     </tr>
                 </div>
             </tbody>

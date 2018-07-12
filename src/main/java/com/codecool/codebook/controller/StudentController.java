@@ -40,7 +40,9 @@ public class StudentController {
     public String showStudent(Model model, @RequestParam("id") String id){
         Student student = studentRepository.getOne(Long.valueOf(id));
         model.addAttribute("student", student);
-        model.addAttribute("sessinId", session.getAttribute("userID"));
+        model.addAttribute("sessionId", session.getAttribute("userID"));
+        String email = (String) session.getAttribute("email");
+        model.addAttribute("user", studentRepository.findByEmail(email));
         return "student";
     }
 
@@ -48,7 +50,8 @@ public class StudentController {
     public String edit(Model model, @RequestParam("id") String id){
         Student student = studentRepository.getOne(Long.valueOf(id));
         List<Workplace> workplaceList = workplaceRepository.findAll();
-        Workplace workplace = student.getWorkplace();
+        String email = (String) session.getAttribute("email");
+        model.addAttribute("user", studentRepository.findByEmail(email));
         model.addAttribute("student", student);
         model.addAttribute("workplaces", workplaceList);
         return "edit";

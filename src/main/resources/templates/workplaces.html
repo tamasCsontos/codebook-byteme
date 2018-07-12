@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/card.ss">
+    <link rel="stylesheet" href="css/card.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="css/detailedView.css">
@@ -54,29 +54,29 @@
 <body>
 <div id="body-wrapper">
     <header class="clearfix">
-        <img id="header-logo" src="nope" th:src="@{/static/assets/codecoolLogo.png}" alt="Codecool Logo">
+        <img id="header-logo" src="assets/codecoolLogo.png" alt="Codecool Logo">
         <span id="header-title" class="title"><a class="button" href="/">
             CodeBook</a>
                 </span>
         <a class="header-content title button" href="/">Students</a>
         <div id="header-auth">
-            <div th:if="${userName == null}">
+            <div th:if="${user == null}">
 
                 <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
 
                 <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
             </div>
-            <div th:if="${userName != null}">
+            <div th:if="${user != null}">
                 <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
             </div>
         </div>
     </header>
 
     <section>
-        <div class="title text-center" th:switch="${userName}">
+        <div class="title text-center" th:switch="${user}">
             <h2 th:case="null">Welcome to CodeBook</h2>
             <div th:case="*">
-                <h2 th:text="'Welcome back ' + ${userName.getName()} + '!'"></h2>
+                <h2 th:text="'Welcome back ' + ${user.name} + '!'"></h2>
             </div>
         </div>
 
@@ -92,8 +92,8 @@
                 <tbody>
                 <div th:each="workplace : ${workplaces}">
                     <tr>
-                        <td><a  th:href="@{'/workplace/' + '?id=' + ${workplace.Id}}" ><p class="text text-center" th:text="${workplace.name}"></p></a></td>
-                        <td><p class="text text-center" th:text="${workplace.getDescription()}"></p></td>
+                        <td><a  th:href="@{'/workplace/' + '?id=' + ${workplace.id}}" ><p class="text text-center" th:text="${workplace.name}"></p></a></td>
+                        <td><p class="text text-center" th:text="${workplace.description}"></p></td>
                     </tr>
                 </div>
                 </tbody>

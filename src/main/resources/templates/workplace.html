@@ -2,7 +2,31 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title th:text="${workplace.name} + ' | CodeBook'"></title>
+
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/detailedView.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- Nomalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+
+
+
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -23,32 +47,68 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
-<body class="index_body">
-    <h1> Data</h1>
-    <div th:text="${workplace.name}">
-    </div>
-    <div th:text="${workplace.description}">
-    </div>
-    <h2>Students working here:</h2>
-    <div th:each="student : ${workplace.getStudents()}">
-        <a class="btn btn-primary student-btn" th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name}"></a>
-    </div>
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="assets/codecoolLogo.png" alt="Codecool Logo">
+        <span id="header-title" class="title"><a class="button" href="/">
+            CodeBook</a>
+                </span>
+        <a class="header-content title button" href="/">Students</a>
+        <a class="header-content title button" href="/workplaces">Workplaces</a>
+        <div id="header-auth">
+            <div th:if="${user == null}">
 
-    <h2>Actual Jobs:</h2>
-    <div th:each="job : ${workplace.getJobs()}">
-        <a class="btn btn-danger job-btn" th:text="${job.name}"></a>
-    </div>
+                <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
 
-    <h2>Feedbacks:</h2>
-    <div th:each="student : ${workplace.getStudents()}">
-        <div th:if="${student.workplaceFeedback != null}">
-            <a th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name} + ': '"></a>
-            <p th:text="${student.workplaceFeedback}"></p>
+                <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
+            </div>
+            <div th:if="${user != null}">
+                <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div th:replace="footer.html :: copy"></div>
+    <section>
+        <div class="card">
+            <h1 th:text="${workplace.name}" class="text-center"></h1>
+            <div th:text="${workplace.description}" class="text-center">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Students working here:</h2>
+            <div th:each="student : ${workplace.getStudents()}">
+                <a th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name}"></a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Jobs:</h2>
+            <div th:each="job : ${workplace.getJobs()}">
+                <a th:text="${job.name}"></a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Feedbacks:</h2>
+            <div th:each="student : ${workplace.getStudents()}">
+                <div th:if="${student.workplaceFeedback != null}">
+                    <a th:href="@{'/student?id=' + ${student.id}}" th:text="${student.name} + ': '"></a>
+                    <p th:text="${student.workplaceFeedback}"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        All rights to the design belong to Daniel Salamon.
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
 </body>
