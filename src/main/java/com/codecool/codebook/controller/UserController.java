@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-public class UserController{
+public class UserController {
 
     @Autowired
     StudentRepository studentRepository;
@@ -38,7 +38,7 @@ public class UserController{
     }
 
     @PostMapping("/login")
-    public String doLogin(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password){
+    public String doLogin(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password) {
         String hashedPassword = studentRepository.findByEmail(email).getPassword();
         if (bcrypt.checkPassword(password, hashedPassword)) {
             if (email.equals("admin@admin.com")){
@@ -56,7 +56,7 @@ public class UserController{
 
     @GetMapping("/logout")
     public String logout() {
-        if (session.getAttribute("userID") != null){
+        if (session.getAttribute("userID") != null) {
             session.invalidate();
 
         }
@@ -70,16 +70,16 @@ public class UserController{
     }
 
     @PostMapping("/registration")
-    public String doRegistration(@RequestParam("name") String name,@RequestParam("email") String email, @RequestParam("password") String password) {
+    public String doRegistration(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password) {
         String hashedPassword = bcrypt.hashPassword(password);
         Student newStudent = new Student(name, email, hashedPassword);
         studentRepository.save(newStudent);
+        session.setAttribute("userID", newStudent.getId());
+        session.setAttribute("email", newStudent.getEmail());
         mailer = new Mailer();
         mailer.sendWelcome(request);
         return "redirect:/";
     }
-
-
 
 
 }

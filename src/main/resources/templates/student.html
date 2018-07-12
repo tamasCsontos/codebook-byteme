@@ -24,6 +24,8 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
+
+    <script src="js/script.js" defer></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
 </head>
@@ -32,23 +34,30 @@
     <div class="student_info" th:text="${#strings.capitalize(student.getName())}"></div>
     <div class="student_info" th:text="${student.getEmail()}"></div>
 
+    <div th:if="${sessinId == student.id}">
+        <form method="post" th:action="@{'/edit?id=' + ${sessinId}}">
+            <button type="submit" class="btn btn-success">Edit Details</button>
+        </form>
+
+    </div>
+
 <h2>Workplace:</h2>
-<div class="workplace" th:switch="${student.getWorkplace()}">
-    <p th:case="'No Workplace'">No Workplace for this User</p>
+<div class="workplace" th:switch="${student.workplace}">
+    <p th:case="${null}">No Workplace for this User</p>
     <div th:case="*">
-        <a th:href="@{'/workplace/' + ${student.getWorkplace().getId()}}" th:text="${student.getWorkplace().getName()}"></a>
+        <a th:href="@{'/workplace?id=' + ${student.workplace.id}}" th:text="${student.getWorkplace().getName()}"></a>
     </div>
 </div>
 
 
 <h2>Class:</h2>
 <div class="class" th:switch="${student.getKlass()}">
-    <p th:case="'No Klass'">No Class for this User</p>
+    <p th:case="${null}">No Class for this User</p>
     <div th:case="*">
         <p th:text="${student.getKlass().getName()}"></p>
     </div>
 </div>
-    <a th:href="@{'/message/' + ${student.getId()}}" class="btn btn-success">Message</a>
+    <a th:if="${sessinId != student.id}" th:href="@{'/message?id=' + ${student.getId()}}" class="btn btn-success">Message</a>
     <div th:replace="footer.html :: copy"></div>
 
 </body>
