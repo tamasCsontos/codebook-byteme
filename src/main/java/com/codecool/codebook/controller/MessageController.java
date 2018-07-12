@@ -1,59 +1,55 @@
-/*
 package com.codecool.codebook.controller;
 
-import com.codecool.codebook.config.TemplateEngineUtil;
 import com.codecool.codebook.model.Message;
 import com.codecool.codebook.model.Student;
+import com.codecool.codebook.repository.StudentRepository;
 import com.codecool.codebook.sql.Queries;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-public class MessageController extends HttpServlet {
+@Controller
+public class MessageController {
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Autowired
+    HttpSession session;
+
+    @Autowired
     Queries queries;
 
-    public MessageController(Queries queries) {
-        this.queries = queries;
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        HttpSession session = req.getSession();
-        if (session.getAttribute("userID") != null){
-            Long receiverId = Long.valueOf(req.getParameter("id"));
-            Long senderId = new Long((int) session.getAttribute("userID"));
-            Student senderStudent = queries.getStudent(senderId);
-            Student recieverStudent = queries.getStudent(receiverId);
-            context.setVariable("student1", senderStudent);
-            context.setVariable("student2", recieverStudent);
-            context.setVariable("messages", queries.getAllMessageBetweenUsers(senderId, receiverId));
-            context.setVariable("queries", queries);
-            engine.process("message.html", context, resp.getWriter());
+    @GetMapping("/message")
+    public String showMessage(Model model, @RequestParam("id") String receiverId) {
+        if (session.getAttribute("userID") != null) {
+            Long senderId = (Long) session.getAttribute("userID");
+            Student senderStudent = studentRepository.getOne(senderId);
+            Student receiverStudent = studentRepository.getOne(Long.valueOf(receiverId));
+            model.addAttribute("student1", senderStudent);
+            model.addAttribute("student2", receiverStudent);
+            model.addAttribute("messages", queries.getAllMessageBetweenUsers(senderId, Long.valueOf(receiverId)));
+            model.addAttribute("queries", queries);
+            return "message";
         } else {
-            engine.process("messageerror.html", context, resp.getWriter());
-
+            return "messageerror";
         }
-
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Long receiverId = Long.valueOf(request.getParameter("id"));
-        HttpSession session = request.getSession();
-        Long senderId = new Long((int) session.getAttribute("userID"));
-        String textMessage = request.getParameter("message");
+    @PostMapping("/message")
+    public String sendMessage(@RequestParam("id") String receiverId, @RequestParam("message") String textMessage) {
+        Long senderId = (Long) session.getAttribute("userID");
         Message message = new Message(textMessage);
-        message.setReceiverStudent(queries.getStudent(receiverId));
+        message.setReceiverStudent(queries.getStudent(Long.valueOf(receiverId)));
         message.setSenderStudent(queries.getStudent(senderId));
         queries.addNewMessage(message);
 
-        response.sendRedirect("/message/?id=" + receiverId);
+        return "redirect:message?id=" + receiverId;
     }
-}*/
+
+}
