@@ -75,4 +75,19 @@ public class QueryController extends HttpServlet {
         return "success";
     }
 
+    @PostMapping("/checkWorkplace")
+    public boolean checkWorkplace(@RequestParam("id")String id,
+                                  @RequestParam("workplace")String workplace){
+        Student student = studentRepository.getOne(Long.valueOf(id));
+        Workplace newWorkplace = workplaceRepository.findByNameEquals(workplace);
+
+        if (student.getWorkplace() != null && newWorkplace != null){
+
+            return student.getWorkplace().getName().equals(newWorkplace.getName());
+        } else if (student.getWorkplace() == null && newWorkplace != null){
+
+            return false;
+        } else return false;
+    }
+
 }
