@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
-@Controller
+@RestController
 @RequestMapping("admin")
 public class AdminController {
 
@@ -23,32 +25,25 @@ public class AdminController {
     @Autowired
     ActualJobRepository actualJobRepository;
 
-    @GetMapping
-    public String goToAdmin(@SessionAttribute String email, Model model){
-        if (email.equals("admin@admin.com")) {
-            List<Workplace> workplaces = workplaceRepository.findAll();
-            model.addAttribute("workplaces", workplaces);
-            return "admin";
-        }else{
-            return "index";
-        }
-    }
+
 
 
     @PostMapping("/addWorkplace")
-    public String addWorkplace(@RequestParam("workplace_name") String name, @RequestParam("workplace_description") String description){
+    public boolean addWorkplace(@RequestParam("name") String name, @RequestParam("description") String description){
         Workplace workplace = new Workplace(name, description);
         workplaceRepository.save(workplace);
-        return "redirect:admin";
+        return true;
     }
 
     @PostMapping("/addActualjob")
-    public String addActualJob(@RequestParam("actual_job_name-field") String name, @RequestParam("workplace")String workplacename, @RequestParam("actual_job_description") String description){
+    public boolean addActualJob(@RequestParam("name") String name, @RequestParam("workplace")String workplacename, @RequestParam("description") String description){
         ActualJob actualJob = new ActualJob(name, description);
-        Workplace workplace =workplaceRepository.findByNameEquals(workplacename);
+        Workplace workplace = workplaceRepository.findByNameEquals(workplacename);
+        workplace.addActualJob(actualJob);
+        workplaceRepository.save(workplace);
         actualJobRepository.save(actualJob);
-        actualJob.setWorkplace(workplace);
-        return "redirect:admin";
+
+        return true;
     }
 
 

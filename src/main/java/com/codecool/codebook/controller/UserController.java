@@ -70,9 +70,10 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String doRegistration(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public String doRegistration(@RequestParam("name") String name,@RequestParam("phonenumber")String phone, @RequestParam("email") String email, @RequestParam("password") String password) {
         String hashedPassword = bcrypt.hashPassword(password);
         Student newStudent = new Student(name, email, hashedPassword);
+        newStudent.setPhonenumber(phone);
         studentRepository.save(newStudent);
         session.setAttribute("userID", newStudent.getId());
         session.setAttribute("email", newStudent.getEmail());

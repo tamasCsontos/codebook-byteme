@@ -37,7 +37,7 @@ function checkEmail() {
 
         $.post("check", $.param(params), function (boolean) {
             console.log(boolean);
-            debugger;
+
             if (boolean === true) {
                 message.innerText = "This email is already registered!";
                 message.setAttribute("style", "color: red; font-size: 1.25em");
@@ -67,7 +67,7 @@ function checkEmailExistence() {
 
         $.post("check", $.param(params), function (response) {
             console.log(response);
-            debugger;
+
 
             if (response === "true") {
                 $.post("login", $.param(params), function (response2) {
@@ -127,7 +127,7 @@ function addActualJob() {
     var actualJobDescription = document.getElementById("actual_job_description");
     var actualJobWorkplace = document.getElementById("actual_job_work_place");
     var selected = actualJobWorkplace.options[actualJobWorkplace.selectedIndex].value;
-    var success = document.getElementById("succesful-adding");
+    var success = document.getElementById("successful");
 
 
 
@@ -138,11 +138,14 @@ function addActualJob() {
             workplace : selected
         };
         $.post("admin/addActualjob", $.param(params), function (response) {
-            if (response === "success") {
+            if (response === true) {
+                debugger;
+                success.innerText = "Successfully added job";
                 success.setAttribute("style", "color:green");
-                success.removeAttribute("hidden");
-                actualJobName.innerText = "";
-                actualJobDescription.innerText = "";
+                actualJobName.value = "";
+                actualJobDescription.value = "";
+            } else {
+
             }
         })
     })
@@ -152,7 +155,7 @@ function addActualJob() {
 function addWorkplace() {
     var workPlaceName = document.getElementById("workplace_name");
     var workPlaceDescription = document.getElementById("workplace_description");
-    var success = document.getElementById("succesful-add");
+    var success = document.getElementById("successful");
 
     $(document).ready(function () {
         var params = {
@@ -160,11 +163,14 @@ function addWorkplace() {
             description: workPlaceDescription.value
         };
         $.post("admin/addWorkplace", $.param(params), function (response) {
-            if (response === "success") {
+            debugger;
+            if (response === true) {
+                success.innerText = "Successfully added workplace";
                 success.setAttribute("style", "color:green");
-                success.removeAttribute("hidden");
-                workPlaceName.innerText = "";
-                workPlaceDescription.innerText = ""
+                workPlaceName.value = "";
+                workPlaceDescription.value = ""
+            } else {
+                
             }
         })
     })
