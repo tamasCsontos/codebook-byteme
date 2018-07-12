@@ -25,6 +25,7 @@ public class InitializerBean {
         Student student8 = new Student("Metall Ica", "icu@mail.hu", "examplepassword");
         Student student9 = new Student("Mesz Eli", "eli@mail.hu", "examplepassword");
         Student student10 = new Student("Test User", "testuser", "$2a$12$dUNGULRkxdREqZ4Fb8npUey.sAjVm4qnIngMsvIWcr0mo9n.6wgQa");
+        Student student11 = new Student("Admin", "admin@admin.com", "$2a$12$q4ejD4qRINaqcMYfLhugCOEYj8wcNDjQOZeSUVd5kngUGJ5XL8mOe");
 
         //Genarate Workplaces
         Workplace workPlace1 = new Workplace("Facebook", "Community site.");
@@ -102,5 +103,6 @@ public class InitializerBean {
         studentRepository.save(student8);
         studentRepository.save(student9);
         studentRepository.save(student10);
+        studentRepository.save(student11);
     }
 }
