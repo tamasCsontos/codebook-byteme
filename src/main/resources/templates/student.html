@@ -1,13 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
-    <meta charset="utf-8"/>
-    <meta name="author" content="Codecool"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <title>Registration | CodeBook</title>
-
+    <meta charset="UTF-8">
+    <title th:text="${student.getName()} + ' | CodeBook'"> </title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -28,47 +25,40 @@
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
 
-    <script src="/static/js/confirmpw.js"></script>
-
+    <script src="js/script.js" defer></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
+<body class="index_body">
+    <h1>Student Informations</h1>
+    <div class="student_info" th:text="${#strings.capitalize(student.getName())}"></div>
+    <div class="student_info" th:text="${student.getEmail()}"></div>
 
-<body>
+    <div th:if="${sessinId == student.id}">
+        <form method="post" th:action="@{'/edit?id=' + ${sessinId}}">
+            <button type="submit" class="btn btn-success">Edit Details</button>
+        </form>
 
-<h1>
-    Registration
-</h1>
-<form action="/registration" method="post">
-    <label>
-        Name
-    </label>
-    <input required name="name"/>
-    <br>
-    <label>
-        Phone No.:
-    </label>
-    <input  name="phonenumber"/>
-    <br>
-    <label>
-        E-mail:
-    </label>
-    <input required name="email"/>
-    <br>
-    <label>Password:
-        <input required id="password" type="password" name="password" onkeyup='check();'/>
-    </label>
-    <br>
-    <label>Confirm Password:
-        <input required id="confirm_password" name="confirm_password" type="password" onkeyup='check();'/>
-        <span id="message"></span>
-    </label>
-    <button id="submit" type="submit" value="registration">Submit</button>
-</form>
-<div th:replace="footer.html :: copy"></div>
+    </div>
+
+<h2>Workplace:</h2>
+<div class="workplace" th:switch="${student.workplace}">
+    <p th:case="${null}">No Workplace for this User</p>
+    <div th:case="*">
+        <a th:href="@{'/workplace?id=' + ${student.workplace.id}}" th:text="${student.getWorkplace().getName()}"></a>
+    </div>
+</div>
+
+
+<h2>Class:</h2>
+<div class="class" th:switch="${student.getKlass()}">
+    <p th:case="${null}">No Class for this User</p>
+    <div th:case="*">
+        <p th:text="${student.getKlass().getName()}"></p>
+    </div>
+</div>
+    <a th:if="${sessinId != student.id}" th:href="@{'/message?id=' + ${student.getId()}}" class="btn btn-success">Message</a>
+    <div th:replace="footer.html :: copy"></div>
+
 </body>
 </html>

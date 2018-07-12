@@ -24,8 +24,11 @@
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="index_body">
+    <div class="static_header" th:replace="header.html :: copy">
+    </div>
     <h1>Something went wrong</h1>
     <div th:replace="footer.html :: copy">
     </div>

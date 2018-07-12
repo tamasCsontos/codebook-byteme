@@ -8,11 +8,13 @@ import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Message;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.model.Workplace;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class Queries {
     private EntityManagerFactory emf;
     private EntityManager em;
@@ -225,13 +227,17 @@ public class Queries {
     }
 
     public Student getStudent(String email){
+        try {
 
-        Query query = em.createQuery("select id from Student where email = :email")
-                                    .setParameter("email", email);
+            Query query = em.createQuery("select id from Student where email = :email")
+                                        .setParameter("email", email);
 
-        Long id = Long.parseLong(query.getSingleResult().toString());
+            Long id = Long.parseLong(query.getSingleResult().toString());
 
-        return em.find(Student.class, id);
-
+            return em.find(Student.class, id);
+        }catch (NoResultException e){
+            System.err.println("Error caught: " + e.toString() + "in getStudent()");
+            return null;
+        }
     }
 }

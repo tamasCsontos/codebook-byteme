@@ -1,4 +1,6 @@
-package com.codecool.codebook;
+package com.codecool.codebook.service;
+
+import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
-
+@Service
 public class Mailer {
     public void sendWelcome(HttpServletRequest req){
         // Recipient's email ID needs to be mentioned.
@@ -67,10 +69,8 @@ public class Mailer {
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
+        } catch (MessagingException | UnsupportedEncodingException mex) {
             mex.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
     }
 }
