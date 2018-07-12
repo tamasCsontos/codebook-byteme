@@ -11,7 +11,7 @@
             <h2 >No User logged in!</h2>
         </div>
         <div th:case="*" class="name_switch">
-            <h2>Welcome <a th:href="@{'/student/?id=' + ${user.getId()}}" th:text="${#strings.capitalize(user.getName())}"></a>! </h2>
+            <h2>Welcome <a th:href="@{'/student?id=' + ${user.getId()}}" th:text="${#strings.capitalize(user.getName())}"></a>! </h2>
         </div>
     </div>
     <div  class="body_buttons">

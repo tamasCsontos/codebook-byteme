@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Details | Codebook</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <script src="js/script.js" defer></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+            integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+</head>
+<body>
+    <div class="student_info">
+        <div class="information_inputs">
+            <textarea id="id" th:text="${student.id}" hidden></textarea>
+            <div>
+                <div class="name">name:</div>
+                <textarea id="name" th:text="${student.name}"></textarea>
+            </div>
+            <div>
+                <div class="phone">phone:</div>
+                <textarea id="phone" th:text="${student.phonenumber}"></textarea>
+            </div>
+            <div th:switch="${student.workplace}">
+                <select id="form-control-null" th:case="null">
+                    <option th:each="workplace : ${workplaces}" th:attr="value = ${workplace.name}" th:text="${workplace.name}"></option>
+                    <option value="none" selected>None</option>
+                </select>
+                <select id="form-control" th:case="*">
+                    <option th:each="workplace : ${workplaces}" th:attr="value = ${workplace.name}" th:text="${workplace.name}" th:selected="${workplace.name == student.workplace.name}"></option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+            <div th:if="${student.workplace != null}">
+                <div class="feedback">feedback:</div>
+                <textarea id="feedback" th:text="${student.workplaceFeedback}"></textarea>
+            </div>
+            <a class="btn btn-success" onclick="saveStudent()">Save</a>
+        </div>
+    </div>
+</body>
+</html>

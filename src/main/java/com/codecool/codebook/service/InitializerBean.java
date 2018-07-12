@@ -23,7 +23,7 @@ public class InitializerBean {
         Student student6 = new Student("Szalmon Ella", "ella@mail.hu", "examplepassword");
         Student student7 = new Student("Ipsz Ilonka", "y@mail.hu", "examplepassword");
         Student student8 = new Student("Metall Ica", "icu@mail.hu", "examplepassword");
-        Student student9 = new Student("Mesz Eli", "eli@mail.hu", "examplepassword");
+        Student student9 = new Student("Mesz Eli", "eli@mail.hu", "$2a$12$oeVxda0.IjI/auTMFQJpCePVXNCNzvQK5bYS2B4CCqjuluSQ8Z35u");
 
         //Genarate Workplaces
         Workplace workPlace1 = new Workplace("Facebook", "Community site.");
