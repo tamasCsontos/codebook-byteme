@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+</head>
+<body class="index_body">
+    <h3>Welcome to Admin page!</h3>
+    <h2>Add actual job</h2>
+    <form action="/admin/addActualjob" method="post">
+        <h4 id="actual_job_name-field">
+            <label  for="actual_job_name-field" class="input_label">Actual job name:</label>
+            <input id="actual_job_name" name="actual_job_name" type="text" required/>
+        </h4>
+        <h4 id="description-field">
+            <label  for="description-field" class="input_label">Actual job description:</label>
+            <input id="actual_job_description" name="actual_job_description" type="text" required/>
+        </h4>
+        <h4 id="actual_job_workplace">
+            <label for="actual_job_workplace" class="input_labe">Workplace for Actual job</label>
+            <select>
+                <option th:value="0">Select Workplace</option>
+                <option th:each="workplace : ${workplaces}"
+                        th:value="${workplace.id}"
+                        th:text="${workplace.getName()}">
+
+                </option>
+            </select>
+        </h4>
+        <button value="button1" type="submit" class="btn btn-success register">Add</button>
+    </form>
+    <h2>Add workplace</h2>
+    <form action="/admin/addWorkplace" method="post">
+        <h4 id="workplace_name-field">
+            <label  for="workplace_name-field" class="input_label">Workplace name:</label>
+            <input id="workplace_name" name="workplace_name" type="text" required/>
+        </h4>
+        <h4 id="workplace_description-field">
+            <label  for="workplace_description-field" class="input_label">Workplace description:</label>
+            <input id="workplace_description" name="workplace_description" type="text" required/>
+        </h4>
+        <button type="submit" value="button2" class="btn btn-success register">Add</button>
+    </form>
+</body>
+</html>

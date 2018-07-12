@@ -41,9 +41,15 @@ public class UserController{
     public String doLogin(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password){
         String hashedPassword = studentRepository.findByEmail(email).getPassword();
         if (bcrypt.checkPassword(password, hashedPassword)) {
+            if (email.equals("admin@admin.com")){
             session.setAttribute("userID", studentRepository.findByEmail(email).getId());
             session.setAttribute("email", email);
-            return "redirect:/";
+            return "redirect:/admin";
+            }else{
+                session.setAttribute("userID", studentRepository.findByEmail(email).getId());
+                session.setAttribute("email", email);
+                return "redirect:/";
+            }
         }
         return "login";
     }
