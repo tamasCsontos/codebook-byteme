@@ -83,7 +83,6 @@ function checkEmailExistence() {
 
 
 function saveStudent() {
-    debugger;
     var name = document.getElementById("name").value;
     var phone = document.getElementById("phone").value;
     var feedback = document.getElementById("feedback");
@@ -100,7 +99,6 @@ function saveStudent() {
         feedback = feedback.value;
     }
 
-    debugger;
     $(document).ready(function () {
         var params = {
             name: name,
