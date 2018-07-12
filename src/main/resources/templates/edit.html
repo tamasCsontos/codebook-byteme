@@ -35,7 +35,7 @@
                 <div class="phone">phone:</div>
                 <textarea id="phone" th:text="${student.phonenumber}"></textarea>
             </div>
-            <div th:switch="${student.workplace}">
+            <div th:switch="${student.workplace}" onchange="checkWorkplace()">
                 <select id="form-control-null" th:case="null">
                     <option th:each="workplace : ${workplaces}" th:attr="value = ${workplace.name}" th:text="${workplace.name}"></option>
                     <option value="none" selected>None</option>
@@ -46,6 +46,7 @@
                 </select>
             </div>
             <div th:if="${student.workplace != null}">
+                <div id="onFalse" hidden>This feedback will be deleted automatically</div>
                 <div class="feedback">feedback:</div>
                 <textarea id="feedback" th:text="${student.workplaceFeedback}"></textarea>
             </div>

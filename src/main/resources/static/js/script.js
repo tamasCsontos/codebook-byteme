@@ -23,6 +23,42 @@ function checkPassword() {
     }
 }
 
+function checkWorkplace() {
+    var id = document.getElementById("id").value;
+    var form_control = document.getElementById("form-control-null");
+    var feedback = document.getElementById("feedback");
+    var onFalse = document.getElementById("onFalse");
+
+    if (form_control === null){
+        form_control = document.getElementById("form-control");
+    }
+
+    var workplace = form_control.options[form_control.selectedIndex].value;
+
+    $(document).ready(function () {
+        var params = {
+            id: id,
+            workplace: workplace
+        };
+
+        $.post("checkWorkplace", $.param(params), function (boolean) {
+            console.log(boolean);
+            if (boolean === false){
+                if (feedback != null){
+                    onFalse.setAttribute("style", "color: red");
+                    onFalse.removeAttribute("hidden");
+                    feedback.setAttribute("disabled", "disabled");
+                }
+            } else {
+                if (feedback != null){
+                    onFalse.setAttribute("hidden", "hidden");
+                    feedback.removeAttribute("disabled");
+                }
+            }
+        })
+    })
+}
+
 
 function checkEmail() {
     var email = document.getElementById("email").value;
