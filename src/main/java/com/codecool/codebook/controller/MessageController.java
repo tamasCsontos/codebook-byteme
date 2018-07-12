@@ -26,8 +26,8 @@ public class MessageController {
     Queries queries;
 
     @GetMapping("/message")
-    public String showMessage(Model model, @RequestParam("id") String receiverId){
-        if (session.getAttribute("userID") != null){
+    public String showMessage(Model model, @RequestParam("id") String receiverId) {
+        if (session.getAttribute("userID") != null) {
             Long senderId = (Long) session.getAttribute("userID");
             Student senderStudent = studentRepository.getOne(senderId);
             Student receiverStudent = studentRepository.getOne(Long.valueOf(receiverId));
@@ -42,7 +42,7 @@ public class MessageController {
     }
 
     @PostMapping("/message")
-    public String sendMessage(@RequestParam("id") String receiverId, @RequestParam("message") String textMessage){
+    public String sendMessage(@RequestParam("id") String receiverId, @RequestParam("message") String textMessage) {
         Long senderId = (Long) session.getAttribute("userID");
         Message message = new Message(textMessage);
         message.setReceiverStudent(queries.getStudent(Long.valueOf(receiverId)));

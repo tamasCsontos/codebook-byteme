@@ -4,7 +4,6 @@ import com.codecool.codebook.model.Message;
 import com.codecool.codebook.model.Student;
 import com.codecool.codebook.sql.Queries;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
