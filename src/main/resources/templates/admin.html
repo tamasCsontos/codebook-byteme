@@ -13,12 +13,17 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+
+    <script src="js/script.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
 </head>
 <body class="index_body">
     <h3>Welcome to Admin page!</h3>
     <h2>Add actual job</h2>
-    <form action="/admin/addActualjob" method="post">
         <h4 id="actual_job_name-field">
+            <div id="succesful-adding" hidden></div>
             <label  for="actual_job_name-field" class="input_label">Actual job name:</label>
             <input id="actual_job_name" name="actual_job_name" type="text" required/>
         </h4>
@@ -28,20 +33,19 @@
         </h4>
         <h4 id="actual_job_workplace">
             <label for="actual_job_workplace" class="input_labe">Workplace for Actual job</label>
-            <select>
+            <select id="actual_job_work_place">
                 <option th:value="0">Select Workplace</option>
                 <option th:each="workplace : ${workplaces}"
-                        th:value="${workplace.id}"
-                        th:text="${workplace.getName()}">
+                        th:value="${workplace.name}"
+                        th:text="${workplace.name}">
 
                 </option>
             </select>
         </h4>
-        <button value="button1" type="submit" class="btn btn-success register">Add</button>
-    </form>
+        <a class="btn btn-success register" onclick="addActualJob()">Add</a>
     <h2>Add workplace</h2>
-    <form action="/admin/addWorkplace" method="post">
         <h4 id="workplace_name-field">
+            <div id="succesful-add" hidden></div>
             <label  for="workplace_name-field" class="input_label">Workplace name:</label>
             <input id="workplace_name" name="workplace_name" type="text" required/>
         </h4>
@@ -49,7 +53,6 @@
             <label  for="workplace_description-field" class="input_label">Workplace description:</label>
             <input id="workplace_description" name="workplace_description" type="text" required/>
         </h4>
-        <button type="submit" value="button2" class="btn btn-success register">Add</button>
-    </form>
+        <a class="btn btn-success register" onclick="addWorkplace()">Add</a>
 </body>
 </html>

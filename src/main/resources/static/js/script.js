@@ -89,7 +89,7 @@ function saveStudent() {
     var id = document.getElementById("id").value;
     var form_control = document.getElementById("form-control-null");
 
-    if (form_control === null){
+    if (form_control === null) {
         form_control = document.getElementById("form-control");
     }
 
@@ -117,6 +117,58 @@ function saveStudent() {
             }
         })
     });
+
+
+
+}
+
+function addActualJob() {
+    var actualJobName = document.getElementById("actual_job_name");
+    var actualJobDescription = document.getElementById("actual_job_description");
+    var actualJobWorkplace = document.getElementById("actual_job_work_place");
+    var selected = actualJobWorkplace.options[actualJobWorkplace.selectedIndex].value;
+    var success = document.getElementById("succesful-adding");
+
+
+
+    $(document).ready(function (){
+        var params = {
+            name : actualJobName.value,
+            description : actualJobDescription.value,
+            workplace : selected
+        };
+        $.post("admin/addActualjob", $.param(params), function (response) {
+            if (response === "success") {
+                success.setAttribute("style", "color:green");
+                success.removeAttribute("hidden");
+                actualJobName.innerText = "";
+                actualJobDescription.innerText = "";
+            }
+        })
+    })
+}
+
+
+function addWorkplace() {
+    var workPlaceName = document.getElementById("workplace_name");
+    var workPlaceDescription = document.getElementById("workplace_description");
+    var success = document.getElementById("succesful-add");
+
+    $(document).ready(function () {
+        var params = {
+            name: workPlaceName.value,
+            description: workPlaceDescription.value
+        };
+        $.post("admin/addWorkplace", $.param(params), function (response) {
+            if (response === "success") {
+                success.setAttribute("style", "color:green");
+                success.removeAttribute("hidden");
+                workPlaceName.innerText = "";
+                workPlaceDescription.innerText = ""
+            }
+        })
+    })
+
 }
 
 

@@ -43,8 +43,9 @@ public class AdminController {
     }
 
     @PostMapping("/addActualjob")
-    public String addActualJob(@RequestParam("actual_job_name-field") String name, @RequestParam("workplace") Workplace workplace, @RequestParam("actual_job_description") String description){
+    public String addActualJob(@RequestParam("actual_job_name-field") String name, @RequestParam("workplace")String workplacename, @RequestParam("actual_job_description") String description){
         ActualJob actualJob = new ActualJob(name, description);
+        Workplace workplace =workplaceRepository.findByNameEquals(workplacename);
         actualJobRepository.save(actualJob);
         actualJob.setWorkplace(workplace);
         return "redirect:admin";
