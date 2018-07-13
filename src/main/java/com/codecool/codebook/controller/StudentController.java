@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -55,6 +58,17 @@ public class StudentController {
         model.addAttribute("student", student);
         model.addAttribute("workplaces", workplaceList);
         return "edit";
+    }
+
+    @GetMapping("/admin")
+    public String goToAdmin(@SessionAttribute String email, Model model, HttpServletResponse response) throws IOException {
+        if (email.equals("admin@admin.com")) {
+            List<Workplace> workplaces = workplaceRepository.findAll();
+            model.addAttribute("workplaces", workplaces);
+            return "admin";
+        }else{
+            return "redirect:/";
+        }
     }
 
 

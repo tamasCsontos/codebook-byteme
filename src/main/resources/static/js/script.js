@@ -73,7 +73,7 @@ function checkEmail() {
 
         $.post("check", $.param(params), function (boolean) {
             console.log(boolean);
-            debugger;
+
             if (boolean === true) {
                 message.innerText = "This email is already registered!";
                 message.setAttribute("style", "color: red; font-size: 1.25em");
@@ -103,7 +103,7 @@ function checkEmailExistence() {
 
         $.post("check", $.param(params), function (response) {
             console.log(response);
-            debugger;
+
 
             if (response === "true") {
                 $.post("login", $.param(params), function (response2) {
@@ -125,7 +125,7 @@ function saveStudent() {
     var id = document.getElementById("id").value;
     var form_control = document.getElementById("form-control-null");
 
-    if (form_control === null){
+    if (form_control === null) {
         form_control = document.getElementById("form-control");
     }
 
@@ -153,6 +153,64 @@ function saveStudent() {
             }
         })
     });
+
+
+
+}
+
+function addActualJob() {
+    var actualJobName = document.getElementById("actual_job_name");
+    var actualJobDescription = document.getElementById("actual_job_description");
+    var actualJobWorkplace = document.getElementById("actual_job_work_place");
+    var selected = actualJobWorkplace.options[actualJobWorkplace.selectedIndex].value;
+    var success = document.getElementById("successful");
+
+
+
+    $(document).ready(function (){
+        var params = {
+            name : actualJobName.value,
+            description : actualJobDescription.value,
+            workplace : selected
+        };
+        $.post("admin/addActualjob", $.param(params), function (response) {
+            if (response === true) {
+                debugger;
+                success.innerText = "Successfully added job";
+                success.setAttribute("style", "color:green");
+                actualJobName.value = "";
+                actualJobDescription.value = "";
+            } else {
+
+            }
+        })
+    })
+}
+
+
+function addWorkplace() {
+    var workPlaceName = document.getElementById("workplace_name");
+    var workPlaceDescription = document.getElementById("workplace_description");
+    var success = document.getElementById("successful");
+
+    $(document).ready(function () {
+        var params = {
+            name: workPlaceName.value,
+            description: workPlaceDescription.value
+        };
+        $.post("admin/addWorkplace", $.param(params), function (response) {
+            debugger;
+            if (response === true) {
+                success.innerText = "Successfully added workplace";
+                success.setAttribute("style", "color:green");
+                workPlaceName.value = "";
+                workPlaceDescription.value = ""
+            } else {
+                
+            }
+        })
+    })
+
 }
 
 

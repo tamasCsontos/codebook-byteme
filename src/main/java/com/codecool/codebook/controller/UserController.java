@@ -41,9 +41,15 @@ public class UserController {
     public String doLogin(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password) {
         String hashedPassword = studentRepository.findByEmail(email).getPassword();
         if (bcrypt.checkPassword(password, hashedPassword)) {
+            if (email.equals("admin@admin.com")){
             session.setAttribute("userID", studentRepository.findByEmail(email).getId());
             session.setAttribute("email", email);
-            return "redirect:/";
+            return "redirect:/admin";
+            }else{
+                session.setAttribute("userID", studentRepository.findByEmail(email).getId());
+                session.setAttribute("email", email);
+                return "redirect:/";
+            }
         }
         return "login";
     }
@@ -64,9 +70,10 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String doRegistration(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public String doRegistration(@RequestParam("name") String name,@RequestParam("phonenumber")String phone, @RequestParam("email") String email, @RequestParam("password") String password) {
         String hashedPassword = bcrypt.hashPassword(password);
         Student newStudent = new Student(name, email, hashedPassword);
+        newStudent.setPhonenumber(phone);
         studentRepository.save(newStudent);
         session.setAttribute("userID", newStudent.getId());
         session.setAttribute("email", newStudent.getEmail());
