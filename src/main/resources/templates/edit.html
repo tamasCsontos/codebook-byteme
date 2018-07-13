@@ -86,11 +86,11 @@
                     <option value="none">None</option>
                 </select>
             </p>
-            <p class="form-element" th:if="${student.workplace != null}">
+            <div class="form-element" th:if="${student.workplace != null}">
                 <div id="onFalse" hidden>This feedback will be deleted automatically</div>
                 <div class="feedback">feedback:</div>
                 <textarea id="feedback" th:text="${student.workplaceFeedback}"></textarea>
-            </p>
+            </div>
             <p class="text-center">
                 <a class="btn btn-success" onclick="saveStudent()">Save</a>
             </p>
