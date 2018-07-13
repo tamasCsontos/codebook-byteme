@@ -57,6 +57,11 @@
             CodeBook</a>
                 </span>
         <a class="header-content title button" href="/workplaces">Workplaces</a>
+        <div th:if="${user} != null">
+            <div th:if="${user.getName()} == 'Admin'">
+                <a class="header-content title button" href="/admin">Admin</a>
+            </div>
+        </div>
         <div id="header-auth">
             <div th:switch="${user}">
                 <div th:case="null">

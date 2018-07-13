@@ -59,6 +59,11 @@
             CodeBook</a>
                 </span>
         <a class="header-content title button" href="/">Students</a>
+        <div th:if="${user} != null">
+            <div th:if="${user.getName()} == 'Admin'">
+                <a class="header-content title button" href="/admin">Admin</a>
+            </div>
+        </div>
         <div id="header-auth">
             <div th:if="${user == null}">
 
@@ -92,7 +97,7 @@
                 <tbody>
                 <div th:each="workplace : ${workplaces}">
                     <tr>
-                        <td><a  th:href="@{'/workplace/' + '?id=' + ${workplace.id}}" ><p class="text text-center" th:text="${workplace.name}"></p></a></td>
+                        <td><a  th:href="@{'/workplace' + '?id=' + ${workplace.id}}" ><p class="text text-center" th:text="${workplace.name}"></p></a></td>
                         <td><p class="text text-center" th:text="${workplace.description}"></p></td>
                     </tr>
                 </div>
