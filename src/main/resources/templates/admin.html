@@ -2,7 +2,24 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title>Admin page</title>
+
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/detailedView.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -20,38 +37,81 @@
 
 </head>
 <body class="index_body">
-    <h3>Welcome to Admin page!</h3>
-    <div id="successful"></div>
-    <h2>Add actual job</h2>
-        <h4 id="actual_job_name-field">
-            <label  for="actual_job_name-field" class="input_label">Actual job name:</label>
-            <input id="actual_job_name" name="actual_job_name" type="text" required/>
-        </h4>
-        <h4 id="description-field">
-            <label  for="description-field" class="input_label">Actual job description:</label>
-            <input id="actual_job_description" name="actual_job_description" type="text" required/>
-        </h4>
-        <h4 id="actual_job_workplace">
-            <label for="actual_job_workplace" class="input_labe">Workplace for Actual job</label>
-            <select id="actual_job_work_place">
-                <option th:value="0">Select Workplace</option>
-                <option th:each="workplace : ${workplaces}"
-                        th:value="${workplace.name}"
-                        th:text="${workplace.name}">
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="assets/codecoolLogo.png" alt="Codecool Logo">
+        <span id="header-title" class="title"><a class="button" href="/">
+            CodeBook</a>
+                </span>
+        <a class="header-content title button" href="/">Students</a>
+        <a class="header-content title button" href="/workplaces">Workplaces</a>
+        <div id="header-auth">
+                <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+        </div>
+    </header>
+    <section>
+        <div class="card">
+            <h3 class="text-center">Codebook Admin</h3>
+        </div>
+        <div class="card">
+            <div id="successful"></div>
+            <h2>Add job</h2>
+            <div class="form-element">
+                <h4 id="actual_job_name-field">
+                    <label  for="actual_job_name-field" class="input_label">Job name:</label>
+                    <input id="actual_job_name" name="actual_job_name" type="text" required/>
+                </h4>
+            </div>
+            <div class="form-element">
+                <h4 id="description-field">
+                    <label  for="description-field" class="input_label">Job description:</label>
+                    <input id="actual_job_description" name="actual_job_description" type="text" required/>
+                </h4>
+            </div>
+            <div class="form-element">
+                <h4 id="actual_job_workplace">
+                    <label for="actual_job_workplace" class="input_labe">Company offering</label>
+                    <select id="actual_job_work_place">
+                        <option th:value="0">Select Workplace</option>
+                        <option th:each="workplace : ${workplaces}"
+                                th:value="${workplace.name}"
+                                th:text="${workplace.name}">
 
-                </option>
-            </select>
-        </h4>
-        <a class="btn btn-success register" onclick="addActualJob()">Add</a>
-    <h2>Add workplace</h2>
-        <h4 id="workplace_name-field">
-            <label  for="workplace_name-field" class="input_label">Workplace name:</label>
-            <input id="workplace_name" name="workplace_name" type="text" required/>
-        </h4>
-        <h4 id="workplace_description-field">
-            <label  for="workplace_description-field" class="input_label">Workplace description:</label>
-            <input id="workplace_description" name="workplace_description" type="text" required/>
-        </h4>
-        <a class="btn btn-success register" onclick="addWorkplace()">Add</a>
+                        </option>
+                    </select>
+                </h4>
+            </div>
+            <p class="text-center">
+                <a class="btn btn-success register" onclick="addActualJob()">Add</a>
+            </p>
+        </div>
+        <div class="card">
+            <h2>Add workplace</h2>
+            <div class="form-element">
+                <h4 id="workplace_name-field">
+                    <label  for="workplace_name-field" class="input_label">Workplace name:</label>
+                    <input id="workplace_name" name="workplace_name" type="text" required/>
+                </h4>
+            </div>
+
+            <div class="form-element">
+                <h4 id="workplace_description-field">
+                    <label  for="workplace_description-field" class="input_label">Workplace description:</label>
+                    <input id="workplace_description" name="workplace_description" type="text" required/>
+                </h4>
+            </div>
+            <p class="text-center">
+                <a class="btn btn-success register" onclick="addWorkplace()">Add</a>
+            </p>
+        </div>
+    </section>
+    <footer>
+        All rights to the design belong to Daniel Salamon.
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
 </body>
 </html>

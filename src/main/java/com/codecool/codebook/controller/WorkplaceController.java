@@ -37,6 +37,8 @@ public class WorkplaceController {
     public String showWorkplace(Model model, @RequestParam("id")String id){
         Workplace workplace = workplaceRepository.getOne(Long.valueOf(id));
         model.addAttribute(workplace);
+        String email = (String) session.getAttribute("email");
+        model.addAttribute("user", studentRepository.findByEmail(email));
         return "workplace";
     }
 }

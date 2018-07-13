@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Set Details | Codebook</title>
-    <link rel="stylesheet" href="css/style.css"/>
+
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/detailedView.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -24,18 +39,44 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
 <body>
-    <div class="student_info">
-        <div class="information_inputs">
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="assets/codecoolLogo.png" alt="Codecool Logo">
+        <span id="header-title" class="title"><a class="button" href="/">
+            CodeBook</a>
+                </span>
+        <a class="header-content title button" href="/">Students</a>
+        <a class="header-content title button" href="/workplaces">Workplaces</a>
+        <div th:if="${user} != null">
+            <div th:if="${user.getName()} == 'Admin'">
+                <a class="header-content title button" href="/admin">Admin</a>
+            </div>
+        </div>
+        <div id="header-auth">
+            <div th:if="${user == null}">
+
+                <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
+
+                <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
+            </div>
+            <div th:if="${user != null}">
+                <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="card">
             <textarea id="id" th:text="${student.id}" hidden></textarea>
-            <div>
+            <p class="form-element">
                 <div class="name">name:</div>
                 <textarea id="name" th:text="${student.name}"></textarea>
-            </div>
-            <div>
+            </p>
+            <p class="form-element">
                 <div class="phone">phone:</div>
                 <textarea id="phone" th:text="${student.phonenumber}"></textarea>
-            </div>
-            <div th:switch="${student.workplace}" onchange="checkWorkplace()">
+            </p>
+            <p class="form-element" th:switch="${student.workplace}" onchange="checkWorkplace()">
                 <select id="form-control-null" th:case="null">
                     <option th:each="workplace : ${workplaces}" th:attr="value = ${workplace.name}" th:text="${workplace.name}"></option>
                     <option value="none" selected>None</option>
@@ -44,15 +85,25 @@
                     <option th:each="workplace : ${workplaces}" th:attr="value = ${workplace.name}" th:text="${workplace.name}" th:selected="${workplace.name == student.workplace.name}"></option>
                     <option value="none">None</option>
                 </select>
-            </div>
-            <div th:if="${student.workplace != null}">
+            </p>
+            <p class="form-element" th:if="${student.workplace != null}">
                 <div id="onFalse" hidden>This feedback will be deleted automatically</div>
                 <div class="feedback">feedback:</div>
                 <textarea id="feedback" th:text="${student.workplaceFeedback}"></textarea>
-            </div>
-            <a class="btn btn-success" onclick="saveStudent()">Save</a>
+            </p>
+            <p class="text-center">
+                <a class="btn btn-success" onclick="saveStudent()">Save</a>
+            </p>
+
         </div>
-    </div>
-<div th:include="footer :: copy"></div>
+    </section>
+    <footer>
+        All rights to the design belong to Daniel Salamon.
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
 </body>
 </html>
