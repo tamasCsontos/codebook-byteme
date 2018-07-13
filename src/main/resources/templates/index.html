@@ -97,12 +97,24 @@
             </thead>
             <tbody>
                 <div th:each="student : ${students}">
-                    <tr>
-                        <td><a th:href="@{'/student' + '?id=' + ${student.id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
-                        <td><p th:if="${student.klass}" class="text text-center" th:text="${student.klass.name}"></p></td>
-                        <td><a th:if="${student.workplace}" th:href="@{'/workplace' + '?id=' + ${student.getWorkplace().getId()}}"><p th:if="${student.workplace}" class="text text-center" th:text="${student.getWorkplace().getName()}"></p></a></td>
-                        <td><a th:href="@{'/message' + '?id=' + ${student.id}}"><p class="text text-center">Message</p></a></td>
-                    </tr>
+                    <div th:switch="${user}">
+                        <div th:case="null">
+                            <tr>
+                                <td><a th:href="@{'/student' + '?id=' + ${student.id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
+                                <td><p th:if="${student.klass}" class="text text-center" th:text="${student.klass.name}"></p></td>
+                                <td><a th:if="${student.workplace}" th:href="@{'/workplace' + '?id=' + ${student.getWorkplace().getId()}}"><p th:if="${student.workplace}" class="text text-center" th:text="${student.getWorkplace().getName()}"></p></a></td>
+                                <td><a th:href="@{'/message' + '?id=' + ${student.id}}"><p class="text text-center">Message</p></a></td>
+                            </tr>
+                        </div>
+                        <div th:case="*" th:if="${user.getName() != student.name}">
+                            <tr>
+                                <td><a th:href="@{'/student' + '?id=' + ${student.id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
+                                <td><p th:if="${student.klass}" class="text text-center" th:text="${student.klass.name}"></p></td>
+                                <td><a th:if="${student.workplace}" th:href="@{'/workplace' + '?id=' + ${student.getWorkplace().getId()}}"><p th:if="${student.workplace}" class="text text-center" th:text="${student.getWorkplace().getName()}"></p></a></td>
+                                <td><a th:href="@{'/message' + '?id=' + ${student.id}}"><p class="text text-center">Message</p></a></td>
+                            </tr>
+                        </div>
+                    </div>
                 </div>
             </tbody>
         </table>
