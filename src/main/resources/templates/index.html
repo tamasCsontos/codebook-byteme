@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Welcome to CodeBook</title>
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- Nomalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/detailedView.css">
+
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+            integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+</head>
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="assets/codecoolLogo.png" alt="Codecool Logo">
+        <span id="header-title" class="title"><a class="button" href="/">
+            CodeBook</a>
+                </span>
+        <a class="header-content title button" href="/workplaces">Workplaces</a>
+        <div th:if="${user} != null">
+            <div th:if="${user.getName()} == 'Admin'">
+                <a class="header-content title button" href="/admin">Admin</a>
+            </div>
+        </div>
+        <div id="header-auth">
+            <div th:switch="${user}">
+                <div th:case="null">
+                    <button type="button" id="bt_login" ><a class="button" href="/login">Login</a></button>
+
+                    <button type="button" id="bt_register" ><a class="button" href="/registration">Register Here</a></button><br>
+                </div>
+                <div th:case="*">
+                    <button type="button" id="bt_logout" ><a class="button" href="/logout">Logout</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="title text-center" th:switch="${user}">
+            <h2 th:case="null">Welcome to CodeBook</h2>
+            <div th:case="*">
+                <h2 th:text="'Welcome back ' + ${user.name} + '!'"></h2>
+            </div>
+        </div>
+
+
+    <div class="card">
+        <h3>Students:</h3>
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">CodeCool Class</th>
+                <th class="text-center">Workplace</th>
+                <th class="text-center action-column"><i class="fas fa-envelope"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+                <div th:each="student : ${students}">
+                    <tr>
+                        <td><a th:href="@{'/student' + '?id=' + ${student.id}}"><p class="text text-center" th:text="${student.name}"></p></a></td>
+                        <td><p th:if="${student.klass}" class="text text-center" th:text="${student.klass.name}"></p></td>
+                        <td><a th:if="${student.workplace}" th:href="@{'/workplace' + '?id=' + ${student.getWorkplace().getId()}}"><p th:if="${student.workplace}" class="text text-center" th:text="${student.getWorkplace().getName()}"></p></a></td>
+                        <td><a th:href="@{'/message' + '?id=' + ${student.id}}"><p class="text text-center">Message</p></a></td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+    </div>
+
+    </section>
+
+    <footer>
+        All rights to the design belong to Daniel Salamon.
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+</body>
+</html>

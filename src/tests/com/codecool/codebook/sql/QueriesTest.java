@@ -2,77 +2,35 @@ package com.codecool.codebook.sql;
 
 import com.codecool.codebook.model.Klass;
 import com.codecool.codebook.model.Student;
-import com.codecool.codebook.model.Workplace;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.*;
+import com.codecool.codebook.CodeBookTestEnv;
 
 import static org.junit.Assert.*;
 
 public class QueriesTest {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
+    EntityManager em = emf.createEntityManager();
+    Queries queries = new Queries(emf);
 
-    @BeforeClass
-    public static void populateTDB() {
-        Queries.setEnv("codebooktestPU");
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("codebooktestPU");
-        EntityManager em = emf.createEntityManager();
-
-        //manual datas
-        Klass newklass = new Klass("klass");
-        Klass newklass2 = new Klass("klass2");
-        Workplace workplace = new Workplace("Pedigre", "Dogfood");
-
-
-        //creating students
-        Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
-        Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
-        Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
-        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
-
-        //adding students to class
-        newklass.addStudent(std1);
-        newklass.addStudent(std2);
-        newklass2.addStudent(std3);
-        newklass2.addStudent(std4);
-
-        workplace.addStudent(std4);
-
-        //adding them to database
-        em.getTransaction().begin();
-        em.persist(newklass);
-        em.persist(newklass2);
-        em.persist(std1);
-        em.persist(std2);
-        em.persist(std3);
-        em.persist(std4);
-        em.persist(workplace);
-        em.getTransaction().commit();
-
-        //closing entity manager
-        em.close();
-        emf.close();
+    @Before
+    public void populateTDB() {
+        CodeBookTestEnv.createDB(em);
     }
-
-
-
-
+    
     /**
      *  Simple test for getAllStudentInfo function
      *  @return: void
      */
     @Test
     public void getAllStudentInfo() {
-        Student std1 =  new Student("john", "asd3@gmil.com", "p4wd");
-        Student std2 =  new Student("john1", "as2d@gmil.com", "p3wd");
-        Student std3 =  new Student("john2", "asdw@gmil.com", "p2wd");
-        Student std4 =  new Student("john3", "asd4@gmil.com", "p1wd");
 
-        List list = Queries.getAllStudentInfo();
+        List list = queries.getAllStudentInfo();
 
         //Cast objects to Student objects
         Student student1 = (Student) list.get(0);
@@ -81,10 +39,10 @@ public class QueriesTest {
         Student student4 = (Student) list.get(3);
 
         //test each student with the test data
-        assertEquals(std1.getEmail(), student1.getEmail());
-        assertEquals(std2.getEmail(), student2.getEmail());
-        assertEquals(std3.getEmail(), student3.getEmail());
-        assertEquals(std4.getEmail(), student4.getEmail());
+        assertEquals("as44d@gmil.com", student1.getEmail());
+        assertEquals("as23d@gmil.com", student2.getEmail());
+        assertEquals("as3d@gmil.com", student3.getEmail());
+        assertEquals("as321d@gmil.com", student4.getEmail());
     }
 
     /**
@@ -105,8 +63,8 @@ public class QueriesTest {
         newklass2.addStudent(std4);
 
         //Getting students from classes
-        Set firstClass = Queries.getAllStudentInKlass(1);
-        Set secondClass = Queries.getAllStudentInKlass(2);
+        Set firstClass = queries.getAllStudentInKlass(1);
+        Set secondClass = queries.getAllStudentInKlass(2);
 
         //Cast objects to Student objects
         Student student1 = (Student) firstClass.toArray()[0];
@@ -123,18 +81,24 @@ public class QueriesTest {
 
     @Test
     public void getWorkplaceForStd() {
-        String workplaceName = Queries.getWorkplaceForStd(1);
+        String workplaceName = queries.getWorkplaceForStd(1);
         assertEquals("Pedigre", workplaceName);
     }
 
     @Test
     public void getKlassForStd() {
-        String klassName = Queries.getKlassForStd(1);
+        String klassName = queries.getKlassForStd(1);
         assertEquals("klass", klassName);
     }
 
     @Test
     public void getStudent(){
 
+    }
+
+    @After
+    public void closeConnection(){
+        em.close();
+        emf.close();
     }
 }
