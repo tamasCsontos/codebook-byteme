@@ -12,8 +12,8 @@ public class Klass {
 
     private String name;
 
-    @OneToMany(mappedBy = "klass")
-    private Set<Student> students = new HashSet<>();
+//    @OneToMany(mappedBy = "klass")
+//    private Set<Student> students = new HashSet<>();
 
     public Klass() {
     }
@@ -40,10 +40,10 @@ public class Klass {
 
     public void addStudent(Student student) {
         student.setKlass(this);
-        students.add(student);
+//        students.add(student);
     }
 
-    public Set<Student> getStudents() {
-        return students;
-    }
+//    public Set<Student> getStudents() {
+//        return students;
+//    }
 }

@@ -1,5 +1,9 @@
 package com.codecool.codebook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +19,19 @@ public class Student {
     private String email;
     private String workplaceFeedback;
     private String phonenumber;
+
+    @JsonIgnore
     private String password;
 
     @ManyToOne
+    @JoinColumn(name = "workplace_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Workplace workplace;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "klass_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Klass klass;
 
     @OneToMany(mappedBy = "senderStudent")
@@ -33,10 +44,16 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String email, String password) {
+//    public Student(String name, String email, String password) {
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//    }
+
+    public Student(String name, String email, String workplaceFeedback) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.workplaceFeedback = workplaceFeedback;
     }
 
     public long getId() {

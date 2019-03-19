@@ -1,5 +1,8 @@
 package com.codecool.codebook.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +14,9 @@ public class ActualJob {
     private String name;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workplace_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Workplace workplace;
 
     public ActualJob() {

@@ -16,8 +16,8 @@ public class Workplace {
     @OneToMany(mappedBy = "workplace")
     private Set<Student> students = new HashSet<>();
 
-    @OneToMany(mappedBy = "workplace")
-    private Set<ActualJob> jobs = new HashSet<>();
+//    @OneToMany(mappedBy = "workplace")
+//    private Set<ActualJob> jobs = new HashSet<>();
 
     public Workplace() {
     }
@@ -58,14 +58,14 @@ public class Workplace {
 
     public void addActualJob(ActualJob actualJob) {
         actualJob.setWorkplace(this);
-        jobs.add(actualJob);
+//        jobs.add(actualJob);
     }
 
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public Set<ActualJob> getJobs() {
-        return jobs;
-    }
+//    public Set<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public Set<ActualJob> getJobs() {
+//        return jobs;
+//    }
 }
