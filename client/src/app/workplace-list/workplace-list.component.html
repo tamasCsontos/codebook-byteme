@@ -1,0 +1,6 @@
+<h1>Workplaces</h1>
+
+<div *ngFor="let workplace of workplaces | async" style="width: 300px;">
+  <app-workplace-details [workplace]='workplace'></app-workplace-details>
+</div>
+
