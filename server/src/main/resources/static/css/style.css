@@ -1,0 +1,119 @@
+
+/*************
+Whole site
+ ************/
+.index_body{
+    width:50%;
+    margin: 0 auto;
+    background-color: lightgray;
+}
+
+.btn{
+    width: 125px;
+
+}
+
+/********
+Header
+ *******/
+.login_btn, .logout_btn, .register_btn, .workplace_btn{
+    margin: 5px 0 5px 0;
+}
+.login_btn, .register_btn{
+    display: inline-block;
+}
+
+
+
+/******
+Footer
+ *****/
+
+.footer_btn{
+    margin-top: 15px;
+}
+
+/*********
+Registration
+ *********/
+.registration, .login{
+    width: 440px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 10px;
+
+}
+.registration input, .login input {
+    float: right;
+}
+
+.register{
+    margin-left: 35%;
+}
+
+#wrong_email, #wrong_password{
+    margin-left: 25%;
+}
+
+
+/*********
+Index
+ *******/
+.student_list, .student_info, .workplace, .class{
+    width: 370px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.msg {
+    float: right;
+}
+
+.student-btn, .msg{
+    margin-top: 10px;
+}
+
+.students{
+    border-bottom: 2px solid azure;
+}
+
+
+/********
+Message
+ *******/
+.msg-field{
+    margin: 5px 0 10px 0;
+}
+.messages{
+    width: 270px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: azure;
+}
+
+.user-btn{
+    margin: 15px 0 10px 0;
+    width: 270px;
+    text-align: center;
+}
+
+/*******************
+Workplace/Workplaces
+ ******************/
+
+.job-btn{
+    width: 175px;
+}
+
+.workplaces{
+    width: 170px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
