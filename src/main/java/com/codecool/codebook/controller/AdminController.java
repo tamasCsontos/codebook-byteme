@@ -39,7 +39,7 @@ public class AdminController {
     public boolean addActualJob(@RequestParam("name") String name, @RequestParam("workplace")String workplacename, @RequestParam("description") String description){
         ActualJob actualJob = new ActualJob(name, description);
         Workplace workplace = workplaceRepository.findByNameEquals(workplacename);
-        workplace.addActualJob(actualJob);
+//        workplace.addActualJob(actualJob);
         workplaceRepository.save(workplace);
         actualJobRepository.save(actualJob);
 

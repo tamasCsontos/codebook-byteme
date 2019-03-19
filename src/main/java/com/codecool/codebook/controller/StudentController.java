@@ -5,19 +5,21 @@ import com.codecool.codebook.model.Workplace;
 import com.codecool.codebook.repository.StudentRepository;
 import com.codecool.codebook.repository.WorkplaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 public class StudentController {
 
     @Autowired
@@ -29,24 +31,25 @@ public class StudentController {
     @Autowired
     HttpSession session;
 
-    @GetMapping("/")
-    public String listStudents(Model model) {
+    @GetMapping("/students")
+    public List<Student> listStudents() {
         List<Student> students = studentRepository.findAll();
+//
+//        model.addAttribute("students", students);
+//        String email = (String) session.getAttribute("email");
+//        model.addAttribute("user", studentRepository.findByEmail(email));
 
-        model.addAttribute("students", students);
-        String email = (String) session.getAttribute("email");
-        model.addAttribute("user", studentRepository.findByEmail(email));
-        return "index";
+        return students;
     }
 
-    @GetMapping("/student")
-    public String showStudent(Model model, @RequestParam("id") String id){
-        Student student = studentRepository.getOne(Long.valueOf(id));
-        model.addAttribute("student", student);
-        model.addAttribute("sessionId", session.getAttribute("userID"));
-        String email = (String) session.getAttribute("email");
-        model.addAttribute("user", studentRepository.findByEmail(email));
-        return "student";
+    @GetMapping("/students/{id}")
+    public Optional<Student> showStudent(@PathVariable("id") int id){
+        Optional<Student> student = studentRepository.findById((long) id);
+//        model.addAttribute("student", student);
+//        model.addAttribute("sessionId", session.getAttribute("userID"));
+//        String email = (String) session.getAttribute("email");
+//        model.addAttribute("user", studentRepository.findByEmail(email));
+        return student;
     }
 
     @PostMapping("/edit")
@@ -60,6 +63,34 @@ public class StudentController {
         return "edit";
     }
 
+    @PostMapping(value = "/students/create")
+    public Student postStudent(@RequestBody Student student) {
+
+        Student _student = studentRepository.save(new Student(student.getName(), student.getEmail(), student.getWorkplaceFeedback()));
+        return _student;
+    }
+
+
+
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") long id, @RequestBody Student student) {
+        System.out.println("Update Student with ID = " + id + "...");
+
+        Optional<Student> studentData = studentRepository.findById(id);
+
+        if (studentData.isPresent()) {
+            Student _student = studentData.get();
+            _student.setName(student.getName());
+            _student.setEmail(student.getEmail());
+            _student.setPhonenumber(student.getPhonenumber());
+            _student.setWorkplaceFeedback(student.getWorkplaceFeedback());
+            return new ResponseEntity<>(studentRepository.save(_student), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @GetMapping("/admin")
     public String goToAdmin(@SessionAttribute String email, Model model, HttpServletResponse response) throws IOException {
         if (email.equals("admin@admin.com")) {
@@ -69,6 +100,24 @@ public class StudentController {
         }else{
             return "redirect:/";
         }
+    }
+
+
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable("id") long id) {
+
+        studentRepository.deleteById(id);
+
+        return new ResponseEntity<>("Student has been deleted!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/students/delete")
+    public ResponseEntity<String> deleteAllCustomers() {
+
+        studentRepository.deleteAll();
+
+        return new ResponseEntity<>("All students have been deleted!", HttpStatus.OK);
     }
 
 
